@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Krinexa — Sign Up</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  html,body{ height:900px; }
+  .shell{ display:grid; grid-template-columns:1fr 1fr; height:calc(900px - 72px); }
+
+  .brandside{ background:var(--navy); color:#fff; padding:60px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; }
+  .brandside .bg-grid{ position:absolute; inset:0; opacity:0.10;
+    background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
+    background-size:36px 36px; }
+  .brandside .content{ position:relative; }
+  .brandside h1{ font-size:34px; max-width:420px; line-height:1.15; }
+  .brandside p{ margin-top:16px; color:#C9D2E4; max-width:380px; font-size:14.5px; }
+
+  .flowmini{ position:relative; margin-top:44px; display:flex; gap:0; }
+  .fnode{ flex:1; border-top:1px solid #33436A; padding-top:14px; padding-right:14px; }
+  .fnode:first-child{ padding-left:0; }
+  .fnode .n{ font-family:'TeX Gyre Cursor'; font-size:11px; color:var(--brass); }
+  .fnode .t{ font-size:12.5px; color:#DDE3EF; margin-top:5px; }
+
+  .brandside .office{ position:relative; font-family:'TeX Gyre Cursor'; font-size:11.5px; color:#8FA0C2; }
+
+  .formside{ display:flex; align-items:center; justify-content:center; padding:24px 0; }
+  .formcard{ width:420px; }
+  .formcard h2{ font-size:24px; }
+  .formcard > p{ color:var(--muted); font-size:13.5px; margin-top:8px; }
+
+  .roletabs{ display:flex; margin-top:26px; border:1px solid var(--line-2); }
+  .roletab{ flex:1; text-align:center; padding:11px 6px; font-family:'TeX Gyre Cursor'; font-size:11.5px; color:var(--muted); cursor:pointer; border-right:1px solid var(--line-2); }
+  .roletab:last-child{ border-right:none; }
+  .roletab.active{ background:var(--navy); color:#fff; }
+
+  .roledesc{ margin-top:14px; font-size:12.5px; color:var(--ink-soft); padding:10px 12px; background:var(--panel); border:1px solid var(--line); }
+
+  form{ margin-top:20px; }
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .field{ margin-bottom:16px; }
+  .field label{ display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-soft); margin-bottom:7px; }
+  .field label .opt{ color:var(--muted); font-family:'TeX Gyre Cursor'; font-size:10.5px; }
+  .field input{ width:100%; padding:11px 13px; border:1px solid var(--line-2); font-family:'TeX Gyre Heros'; font-size:14px; background:#fff; }
+  .otp-row{ display:flex; gap:8px; }
+  .otp-row input{ flex:1; }
+  .otp-row .btn{ padding:11px 14px; font-size:11.5px; white-space:nowrap; }
+
+  .signup-btn{ width:100%; justify-content:center; padding:13px; margin-top:6px; }
+  .terms{ font-size:11.5px; color:var(--muted); margin-top:12px; text-align:center; }
+  .altrow{ margin-top:18px; text-align:center; font-size:13px; color:var(--ink-soft); }
+  .altrow a{ color:var(--navy); font-weight:bold; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">KRINEXA<span class="dot">.</span></div>
+  <div class="navlinks"><a>About</a><a>For Clients</a><a>Technology</a></div>
+  <div style="font-size:13px;color:var(--muted);">Already have an account? <a style="color:var(--navy);font-weight:bold;">Sign In</a></div>
+</div>
+
+<div class="shell">
+  <div class="brandside">
+    <div class="bg-grid"></div>
+    <div class="content">
+      <div class="eyebrow-rule" style="color:#8FA0C2;margin-bottom:20px;"><span>CREATE AN ACCOUNT</span><span class="line" style="background:#33436A;"></span></div>
+      <h1>Join the matching loop, on the right side of it.</h1>
+      <p>Talent profiles get scored against live requirements. Interviewer accounts let your organization schedule and run interviews directly inside Krinexa.</p>
+      <div class="flowmini">
+        <div class="fnode" style="border-top-color:var(--brass);"><div class="n">JOB SEEKER / TALENT</div><div class="t">Build a profile, get matched</div></div>
+        <div class="fnode"><div class="n">INTERVIEWER</div><div class="t">Run interviews for your org's requirements</div></div>
+      </div>
+    </div>
+    <div class="office">SECTOR 49, NOIDA, UTTAR PRADESH – 201301</div>
+  </div>
+
+  <div class="formside">
+    <div class="formcard">
+      <h2>Create your account</h2>
+      <p>Choose the account type that matches what you'll do on Krinexa.</p>
+
+      <div class="roletabs">
+        <div class="roletab">JOB SEEKER / TALENT</div>
+        <div class="roletab active">INTERVIEWER</div>
+      </div>
+      <div class="roledesc">Interviewer accounts are linked to a client organization already registered with Krinexa — you'll confirm your organization on the next step.</div>
+
+      <form>
+        <div class="grid2">
+          <div class="field"><label>Full name</label><input placeholder="e.g. Sana Iyer"></div>
+          <div class="field"><label>Role / title</label><input placeholder="e.g. Engineering Manager"></div>
+        </div>
+        <div class="field"><label>Organization</label><input placeholder="e.g. Nimbus Retail Pvt. Ltd."></div>
+        <div class="field">
+          <label>Work email <span class="opt">otp verification</span></label>
+          <div class="otp-row"><input placeholder="you@company.com"><a class="btn btn-ghost">Send OTP</a></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Password</label><input type="password" placeholder="••••••••"></div>
+          <div class="field"><label>Confirm password</label><input type="password" placeholder="••••••••"></div>
+        </div>
+        <a class="btn btn-primary signup-btn">Create Interviewer Account</a>
+      </form>
+
+      <div class="terms">By continuing, you agree to Krinexa's Terms of Service and Privacy Policy.</div>
+      <div class="altrow">Hiring, not interviewing? <a>Post a Requirement instead</a></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

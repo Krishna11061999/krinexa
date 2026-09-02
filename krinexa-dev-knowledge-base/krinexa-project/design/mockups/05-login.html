@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Krinexa — Sign In</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  html,body{ height:900px; }
+  .shell{ display:grid; grid-template-columns:1fr 1fr; height:calc(900px - 72px); }
+
+  .brandside{ background:var(--navy); color:#fff; padding:60px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; }
+  .brandside .bg-grid{ position:absolute; inset:0; opacity:0.10;
+    background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
+    background-size:36px 36px; }
+  .brandside .content{ position:relative; }
+  .brandside h1{ font-size:34px; max-width:420px; line-height:1.15; }
+  .brandside p{ margin-top:16px; color:#C9D2E4; max-width:380px; font-size:14.5px; }
+
+  .flowmini{ position:relative; margin-top:44px; display:flex; gap:0; }
+  .fnode{ flex:1; border-top:1px solid #33436A; padding-top:14px; padding-right:14px; }
+  .fnode:first-child{ padding-left:0; }
+  .fnode .n{ font-family:'TeX Gyre Cursor'; font-size:11px; color:var(--brass); }
+  .fnode .t{ font-size:12.5px; color:#DDE3EF; margin-top:5px; }
+
+  .brandside .office{ position:relative; font-family:'TeX Gyre Cursor'; font-size:11.5px; color:#8FA0C2; }
+
+  .formside{ display:flex; align-items:center; justify-content:center; }
+  .formcard{ width:400px; }
+  .formcard h2{ font-size:24px; }
+  .formcard > p{ color:var(--muted); font-size:13.5px; margin-top:8px; }
+
+  .roletabs{ display:flex; margin-top:28px; border:1px solid var(--line-2); }
+  .roletab{ flex:1; text-align:center; padding:11px 6px; font-family:'TeX Gyre Cursor'; font-size:11.5px; color:var(--muted); cursor:pointer; border-right:1px solid var(--line-2); }
+  .roletab:last-child{ border-right:none; }
+  .roletab.active{ background:var(--navy); color:#fff; }
+
+  .roledesc{ margin-top:14px; font-size:12.5px; color:var(--ink-soft); padding:10px 12px; background:var(--panel); border:1px solid var(--line); }
+
+  form{ margin-top:22px; }
+  .field{ margin-bottom:18px; }
+  .field label{ display:block; font-size:12.5px; color:var(--ink-soft); margin-bottom:7px; }
+  .field input{ width:100%; padding:12px 13px; border:1px solid var(--line-2); font-family:'TeX Gyre Heros'; font-size:14px; background:#fff; }
+  .field-row{ display:flex; justify-content:space-between; align-items:center; font-size:12.5px; margin:-6px 0 20px; }
+  .field-row a{ color:var(--navy); font-family:'TeX Gyre Cursor'; font-size:11.5px; }
+
+  .signin-btn{ width:100%; justify-content:center; padding:13px; }
+  .altrow{ margin-top:20px; text-align:center; font-size:13px; color:var(--ink-soft); }
+  .altrow a{ color:var(--navy); font-weight:bold; }
+
+  .admin-note{ margin-top:16px; display:flex; gap:8px; align-items:flex-start; font-size:11.5px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">KRINEXA<span class="dot">.</span></div>
+  <div class="navlinks"><a>About</a><a>For Clients</a><a>Talent Network</a></div>
+  <div style="font-size:13px;color:var(--muted);">New here? <a style="color:var(--navy);font-weight:bold;">Join the Talent Network</a></div>
+</div>
+
+<div class="shell">
+  <div class="brandside">
+    <div class="bg-grid"></div>
+    <div class="content">
+      <div class="eyebrow-rule" style="color:#8FA0C2;margin-bottom:20px;"><span>ONE ACCOUNT · THREE ROLES</span><span class="line" style="background:#33436A;"></span></div>
+      <h1>One requirement.<br>One team.<br>The right talent.</h1>
+      <p>Sign in as talent to see your matches, as a client or interviewer to manage requirements and interviews, or as Krinexa admin to review and verify.</p>
+      <div class="flowmini">
+        <div class="fnode" style="border-top-color:var(--brass);"><div class="n">TALENT</div><div class="t">Profile, matches, interviews</div></div>
+        <div class="fnode"><div class="n">CLIENT / INTERVIEWER</div><div class="t">Requirements, chat, candidates</div></div>
+        <div class="fnode"><div class="n">ADMIN</div><div class="t">Review, verify, audit</div></div>
+      </div>
+    </div>
+    <div class="office">SECTOR 49, NOIDA, UTTAR PRADESH – 201301</div>
+  </div>
+
+  <div class="formside">
+    <div class="formcard">
+      <h2>Sign in to Krinexa</h2>
+      <p>Choose your account type — the same krinexa.in sign-in serves all three.</p>
+
+      <div class="roletabs">
+        <div class="roletab active">JOB SEARCH / TALENT</div>
+        <div class="roletab">CLIENT &amp; INTERVIEWER</div>
+        <div class="roletab">ADMIN</div>
+      </div>
+      <div class="roledesc">Signing in as talent shows your profile status, current matches and interview requests.</div>
+
+      <form>
+        <div class="field"><label>Email</label><input placeholder="you@example.com"></div>
+        <div class="field"><label>Password</label><input placeholder="••••••••" type="password"></div>
+        <div class="field-row">
+          <label style="display:flex;align-items:center;gap:7px;"><input type="checkbox" style="width:auto;"> Keep me signed in</label>
+          <a>Forgot password?</a>
+        </div>
+        <a class="btn btn-primary signin-btn">Sign In</a>
+      </form>
+
+      <div class="altrow">Don't have an account? <a>Join the Talent Network</a></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
