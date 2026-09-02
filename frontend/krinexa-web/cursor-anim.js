@@ -1,9 +1,7 @@
 /**
- * Krinexa Custom Mouse Cursor Animation
- * Interactive glass glowing pointer with spring trailing physics.
+ * Krinexa Custom Mouse Cursor Animation — Blue & Off-White Glass Edition
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Create cursor elements if they don't exist
   let dot = document.querySelector('.cursor-dot');
   let follower = document.querySelector('.cursor-follower');
 
@@ -24,19 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let followerX = mouseX;
   let followerY = mouseY;
 
-  // Track mouse movement
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
 
-    // Instant update for inner dot
     dot.style.left = `${mouseX}px`;
     dot.style.top = `${mouseY}px`;
   });
 
-  // Smooth animation loop for follower ring
   function animate() {
-    // Lerp (Linear Interpolation) for smooth trailing effect
     followerX += (mouseX - followerX) * 0.15;
     followerY += (mouseY - followerY) * 0.15;
 
@@ -47,15 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   animate();
 
-  // Interactive Hover Effects
-  const interactiveSelectors = 'a, button, .btn, .btn-kr-primary, .btn-kr-brass, .btn-kr-ghost, .glass-card, .tick-card, .tech-chip, input, select, textarea, .nav-link-custom';
+  const interactiveSelectors = 'a, button, .btn, .btn-kr-signin, .btn-kr-signup, .btn-kr-brass, .btn-kr-ghost, .glass-card, .tick-card, .tech-chip, input, select, textarea, .nav-link-custom';
   
   function attachHoverListeners() {
     const targets = document.querySelectorAll(interactiveSelectors);
     targets.forEach((target) => {
       target.addEventListener('mouseenter', () => {
         follower.classList.add('hovering');
-        dot.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        dot.style.transform = 'translate(-50%, -50%) scale(1.6)';
       });
 
       target.addEventListener('mouseleave', () => {
@@ -67,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   attachHoverListeners();
 
-  // Click ripple effect
   window.addEventListener('mousedown', () => {
     follower.style.transform = 'translate(-50%, -50%) scale(0.7)';
     dot.style.transform = 'translate(-50%, -50%) scale(0.5)';
@@ -78,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
     dot.style.transform = 'translate(-50%, -50%) scale(1)';
   });
 
-  // Hide cursor on leaving window
   document.addEventListener('mouseleave', () => {
     dot.style.opacity = '0';
     follower.style.opacity = '0';
@@ -89,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
     follower.style.opacity = '1';
   });
 
-  // Observe DOM changes to re-attach listeners to dynamically inserted components
   const observer = new MutationObserver(() => {
     attachHoverListeners();
   });

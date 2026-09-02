@@ -9,62 +9,67 @@
   <!-- Bootstrap 5 CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   
-  <!-- Custom Glassmorphism Theme CSS -->
+  <!-- Blue & Off-White Glassmorphism Theme CSS -->
   <link rel="stylesheet" href="glass-theme.css">
 </head>
 <body>
 
-  <!-- Shared Common Glass Header (Rendered by components.js) -->
+  <!-- Common Glass Header (Rendered by components.js) -->
   <div id="kr-header"></div>
 
   <!-- Hero Section -->
-  <section class="py-5">
+  <section class="py-5 overflow-hidden">
     <div class="container px-lg-5">
       <div class="row align-items-center g-5 py-lg-4">
-        <div class="col-lg-7">
+        <!-- Hero Text -->
+        <div class="col-lg-7 animate-fade-in-up">
           <div class="eyebrow-rule mb-3">
             <span>krinexa.in — technology talent, matched</span>
             <span class="line"></span>
           </div>
-          <h1 class="display-3 fw-bold text-white mb-3" style="letter-spacing: -1.5px; line-height: 1.1;">
+          <h1 class="display-3 fw-extrabold text-navy mb-3" style="letter-spacing: -1.5px; line-height: 1.1;">
             Find the right<br>
-            <span style="background: linear-gradient(135deg, #FFFFFF 0%, #C1792F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">developer.</span> Build faster.
+            <span style="background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">developer.</span> Build faster.
           </h1>
           <p class="lead text-muted mb-4 pe-lg-4" style="font-size: 1.15rem; line-height: 1.6;">
-            Describe your project and the experience level you need. Krinexa matches you with vetted developers, interns, and students across <strong class="text-white">.NET, MERN, SQL, and Azure</strong> — without the cost or friction of a full hiring process.
+            Describe your project and the experience level you need. Krinexa matches you with vetted developers, interns, and students across <strong class="text-navy">.NET, MERN, SQL, and Azure</strong> — without the friction or cost of a full hiring process.
           </p>
           <div class="d-flex flex-wrap gap-3">
             <button class="btn btn-kr-brass btn-lg d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#requirementModal">
               Tell Us Your Requirement
               <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </button>
-            <a href="02-registration.html" class="btn btn-kr-ghost btn-lg">Join Our Talent Network</a>
+            <a href="02-registration.html" class="btn btn-kr-ghost btn-lg">Join Talent Network</a>
           </div>
         </div>
 
-        <div class="col-lg-5">
-          <div class="tick-card p-4 rounded-3">
-            <div class="eyebrow-rule mb-3">
-              <span>LIVE READOUT · MATCH ENGINE</span>
-              <span class="line"></span>
+        <!-- Hero Panel / Live Readout -->
+        <div class="col-lg-5 animate-fade-in-up" style="animation-delay: 0.2s;">
+          <div class="tick-card p-4 rounded-4 shadow-lg">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <div class="eyebrow-rule">
+                <span>MATCH ENGINE READOUT</span>
+                <span class="line"></span>
+              </div>
+              <span class="badge bg-success rounded-pill px-3 py-1 font-mono pulse-badge" style="font-size: 11px;">LIVE</span>
             </div>
             
             <div class="row g-3 text-center mb-4">
               <div class="col-6">
                 <div class="glass-card p-3">
-                  <div class="display-6 fw-bold text-white font-mono">40%</div>
+                  <div class="display-6 fw-bold text-primary font-mono">40%</div>
                   <div class="text-muted small mt-1 font-mono">tech stack weight</div>
                 </div>
               </div>
               <div class="col-6">
                 <div class="glass-card p-3">
-                  <div class="display-6 fw-bold text-brass font-mono">20%</div>
+                  <div class="display-6 fw-bold text-warning font-mono">20%</div>
                   <div class="text-muted small mt-1 font-mono">experience weight</div>
                 </div>
               </div>
               <div class="col-6">
                 <div class="glass-card p-3">
-                  <div class="display-6 fw-bold text-white font-mono">240+</div>
+                  <div class="display-6 fw-bold text-navy font-mono">240+</div>
                   <div class="text-muted small mt-1 font-mono">vetted profiles</div>
                 </div>
               </div>
@@ -76,8 +81,8 @@
               </div>
             </div>
 
-            <div class="p-3 glass-card rounded-2 font-mono" style="font-size: 12px; color: #CBD5E1;">
-              Requirement <b class="text-brass">submitted</b> → matching engine <b class="text-info">scored</b> → admin <b class="text-warning">reviewed</b> → shortlist <b class="text-success">sent</b>
+            <div class="p-3 glass-card rounded-3 font-mono" style="font-size: 12px; color: #334155;">
+              Requirement <b class="text-primary">submitted</b> → matching engine <b class="text-info">scored</b> → admin <b class="text-warning">reviewed</b> → shortlist <b class="text-success">sent</b>
             </div>
           </div>
         </div>
@@ -91,10 +96,10 @@
       <div class="d-flex align-items-center justify-content-between mb-4">
         <div>
           <div class="eyebrow-rule mb-1">
-            <span>Structured Process</span>
+            <span>Structured Workflow</span>
             <span class="line"></span>
           </div>
-          <h2 class="fw-bold text-white">How Krinexa works</h2>
+          <h2 class="fw-bold text-navy">How Krinexa works</h2>
         </div>
         <span class="font-mono text-muted small">04 SIMPLE STEPS</span>
       </div>
@@ -102,29 +107,29 @@
       <div class="row g-4">
         <div class="col-lg-3 col-md-6">
           <div class="glass-card tick-card p-4 h-100">
-            <div class="font-mono text-brass fs-4 mb-2">01 /</div>
-            <h4 class="text-white mb-2">Requirement</h4>
+            <div class="font-mono text-primary fs-4 fw-bold mb-2">01 /</div>
+            <h4 class="text-navy fw-bold mb-2">Requirement</h4>
             <p class="text-muted small mb-0">Tell us your technology stack, experience level, budget, and project duration.</p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="glass-card tick-card p-4 h-100">
-            <div class="font-mono text-brass fs-4 mb-2">02 /</div>
-            <h4 class="text-white mb-2">Match Engine</h4>
+            <div class="font-mono text-primary fs-4 fw-bold mb-2">02 /</div>
+            <h4 class="text-navy fw-bold mb-2">Match Engine</h4>
             <p class="text-muted small mb-0">Our automated scoring engine ranks candidates by precise fit and project compatibility.</p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="glass-card tick-card p-4 h-100">
-            <div class="font-mono text-brass fs-4 mb-2">03 /</div>
-            <h4 class="text-white mb-2">Interview</h4>
+            <div class="font-mono text-primary fs-4 fw-bold mb-2">03 /</div>
+            <h4 class="text-navy fw-bold mb-2">Interview</h4>
             <p class="text-muted small mb-0">Meet shortlisted developers — Krinexa manages scheduling, NDA, and consent.</p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="glass-card tick-card p-4 h-100">
-            <div class="font-mono text-brass fs-4 mb-2">04 /</div>
-            <h4 class="text-white mb-2">Delivery</h4>
+            <div class="font-mono text-primary fs-4 fw-bold mb-2">04 /</div>
+            <h4 class="text-navy fw-bold mb-2">Delivery</h4>
             <p class="text-muted small mb-0">Start engagement right away with guaranteed support and transparent tracking.</p>
           </div>
         </div>
@@ -132,7 +137,7 @@
     </div>
   </section>
 
-  <!-- Choose Your Requirement & Tech Grid -->
+  <!-- Requirement Tier & Tech Stack Filter Grid -->
   <section class="py-5">
     <div class="container px-lg-5">
       <div class="glass-card p-4 p-lg-5">
@@ -142,7 +147,7 @@
               <span>Talent Spectrum</span>
               <span class="line"></span>
             </div>
-            <h2 class="fw-bold text-white mb-0">Choose your requirement tier</h2>
+            <h2 class="fw-bold text-navy mb-0">Choose your requirement tier</h2>
           </div>
           <div class="col-lg-6 mt-3 mt-lg-0 text-lg-end">
             <div class="btn-group flex-wrap" role="group">
@@ -173,7 +178,7 @@
     </div>
   </section>
 
-  <!-- Featured Vetted Talent -->
+  <!-- Featured Vetted Talent Cards -->
   <section class="py-5">
     <div class="container px-lg-5">
       <div class="d-flex align-items-center justify-content-between mb-4">
@@ -182,9 +187,9 @@
             <span>Verified Candidates</span>
             <span class="line"></span>
           </div>
-          <h2 class="fw-bold text-white">Featured talent</h2>
+          <h2 class="fw-bold text-navy">Featured talent</h2>
         </div>
-        <a href="02-registration.html" class="font-mono text-brass small text-decoration-none">Browse All Talent →</a>
+        <a href="02-registration.html" class="font-mono text-primary fw-bold small text-decoration-none">Browse All Talent →</a>
       </div>
 
       <div class="row g-4">
@@ -192,10 +197,10 @@
         <div class="col-lg-4 col-md-6">
           <div class="glass-card tick-card p-4 h-100">
             <div class="d-flex justify-content-between align-items-start mb-3">
-              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white font-mono" style="width: 44px; height: 44px; background: var(--kr-navy);">AK</div>
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white font-mono" style="width: 44px; height: 44px; background: var(--kr-blue-primary);">AK</div>
               <span class="match-badge">MATCH 92%</span>
             </div>
-            <h4 class="text-white fs-5 mb-1">Senior .NET Engineer</h4>
+            <h4 class="text-navy fs-5 fw-bold mb-1">Senior .NET Engineer</h4>
             <div class="text-muted small mb-3 font-mono">6 yrs exp · Backend & Cloud</div>
             <div class="d-flex flex-wrap gap-2">
               <span class="tech-chip chip-brass">ASP.NET Core</span>
@@ -209,10 +214,10 @@
         <div class="col-lg-4 col-md-6">
           <div class="glass-card tick-card p-4 h-100">
             <div class="d-flex justify-content-between align-items-start mb-3">
-              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white font-mono" style="width: 44px; height: 44px; background: var(--kr-navy);">RS</div>
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white font-mono" style="width: 44px; height: 44px; background: var(--kr-blue-primary);">RS</div>
               <span class="match-badge">MATCH 88%</span>
             </div>
-            <h4 class="text-white fs-5 mb-1">Junior Full-Stack Developer</h4>
+            <h4 class="text-navy fs-5 fw-bold mb-1">Junior Full-Stack Developer</h4>
             <div class="text-muted small mb-3 font-mono">2 yrs exp · MERN Stack</div>
             <div class="d-flex flex-wrap gap-2">
               <span class="tech-chip chip-brass">React</span>
@@ -226,10 +231,10 @@
         <div class="col-lg-4 col-md-6">
           <div class="glass-card tick-card p-4 h-100">
             <div class="d-flex justify-content-between align-items-start mb-3">
-              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white font-mono" style="width: 44px; height: 44px; background: var(--kr-navy);">PV</div>
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white font-mono" style="width: 44px; height: 44px; background: var(--kr-blue-primary);">PV</div>
               <span class="match-badge">MATCH 81%</span>
             </div>
-            <h4 class="text-white fs-5 mb-1">B.Tech CSE — Final Year</h4>
+            <h4 class="text-navy fs-5 fw-bold mb-1">B.Tech CSE — Final Year</h4>
             <div class="text-muted small mb-3 font-mono">Student · Available Part-time</div>
             <div class="d-flex flex-wrap gap-2">
               <span class="tech-chip chip-brass">React</span>
@@ -243,10 +248,10 @@
         <div class="col-lg-4 col-md-6">
           <div class="glass-card tick-card p-4 h-100">
             <div class="d-flex justify-content-between align-items-start mb-3">
-              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white font-mono" style="width: 44px; height: 44px; background: var(--kr-navy);">MS</div>
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white font-mono" style="width: 44px; height: 44px; background: var(--kr-blue-primary);">MS</div>
               <span class="match-badge">MATCH 95%</span>
             </div>
-            <h4 class="text-white fs-5 mb-1">Cloud & DevOps Architect</h4>
+            <h4 class="text-navy fs-5 fw-bold mb-1">Cloud & DevOps Architect</h4>
             <div class="text-muted small mb-3 font-mono">7 yrs exp · Infrastructure</div>
             <div class="d-flex flex-wrap gap-2">
               <span class="tech-chip chip-brass">Azure</span>
@@ -260,10 +265,10 @@
         <div class="col-lg-4 col-md-6">
           <div class="glass-card tick-card p-4 h-100">
             <div class="d-flex justify-content-between align-items-start mb-3">
-              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white font-mono" style="width: 44px; height: 44px; background: var(--kr-navy);">RJ</div>
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white font-mono" style="width: 44px; height: 44px; background: var(--kr-blue-primary);">RJ</div>
               <span class="match-badge">MATCH 89%</span>
             </div>
-            <h4 class="text-white fs-5 mb-1">Full-Stack MERN Developer</h4>
+            <h4 class="text-navy fs-5 fw-bold mb-1">Full-Stack MERN Developer</h4>
             <div class="text-muted small mb-3 font-mono">3 yrs exp · Web Applications</div>
             <div class="d-flex flex-wrap gap-2">
               <span class="tech-chip chip-brass">React</span>
@@ -277,10 +282,10 @@
         <div class="col-lg-4 col-md-6">
           <div class="glass-card tick-card p-4 h-100">
             <div class="d-flex justify-content-between align-items-start mb-3">
-              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white font-mono" style="width: 44px; height: 44px; background: var(--kr-navy);">VK</div>
+              <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white font-mono" style="width: 44px; height: 44px; background: var(--kr-blue-primary);">VK</div>
               <span class="match-badge">MATCH 91%</span>
             </div>
-            <h4 class="text-white fs-5 mb-1">.NET Core & SQL Specialist</h4>
+            <h4 class="text-navy fs-5 fw-bold mb-1">.NET Core & SQL Specialist</h4>
             <div class="text-muted small mb-3 font-mono">4 yrs exp · Database & Web API</div>
             <div class="d-flex flex-wrap gap-2">
               <span class="tech-chip chip-brass">C#</span>
@@ -302,11 +307,11 @@
           <span class="line"></span>
         </div>
         <blockquote class="blockquote mb-0">
-          <p class="fs-4 text-white fst-italic mb-3">
+          <p class="fs-4 text-navy fst-italic mb-3">
             “We needed a junior ASP.NET Core developer for a two-month internal tool. Krinexa matched us with someone suitable in days, not weeks.”
           </p>
           <footer class="blockquote-footer text-muted font-mono" style="font-size: 13px;">
-            Approved Client Testimonial, <cite title="Company Name" class="text-brass">Enterprise Software Client</cite>
+            Approved Client Testimonial, <cite title="Company Name" class="text-primary fw-bold">Enterprise Software Client</cite>
           </footer>
         </blockquote>
       </div>
@@ -316,10 +321,10 @@
   <!-- CTA Band -->
   <section class="py-5">
     <div class="container px-lg-5">
-      <div class="glass-card p-4 p-lg-5 bg-gradient">
+      <div class="glass-card p-4 p-lg-5">
         <div class="row align-items-center g-4">
           <div class="col-lg-8">
-            <h2 class="display-6 fw-bold text-white mb-2">One requirement. One team.<br>The right talent.</h2>
+            <h2 class="display-6 fw-bold text-navy mb-2">One requirement. One team.<br>The right talent.</h2>
             <div class="font-mono text-muted small">SECTOR 49, NOIDA, UTTAR PRADESH – 201301</div>
           </div>
           <div class="col-lg-4 text-lg-end">
@@ -332,7 +337,7 @@
     </div>
   </section>
 
-  <!-- Shared Common Glass Footer (Rendered by components.js) -->
+  <!-- Common Glass Footer (Rendered by components.js) -->
   <div id="kr-footer"></div>
 
   <!-- Bootstrap 5 JS Bundle -->

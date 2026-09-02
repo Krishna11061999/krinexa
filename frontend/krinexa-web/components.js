@@ -1,5 +1,5 @@
 /**
- * Krinexa Shared Components — Glass Header, Footer & Requirement Modal Injector
+ * Krinexa Shared Components — Blue & Off-White Glass Header, Footer & Requirement Modal Injector
  */
 document.addEventListener('DOMContentLoaded', () => {
   renderHeader();
@@ -17,12 +17,12 @@ function renderHeader() {
   headerContainer.innerHTML = `
     <nav class="navbar navbar-expand-lg kr-navbar fixed-top">
       <div class="container-fluid px-lg-5">
-        <a class="brand-logo d-flex align-items-center me-4" href="index.html">
+        <a class="brand-logo me-4" href="index.html">
           KRINEXA<span class="dot">.</span>
         </a>
         
-        <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#krNavbarContent">
-          <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#krNavbarContent">
+          <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="krNavbarContent">
@@ -44,10 +44,11 @@ function renderHeader() {
             </li>
           </ul>
 
-          <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-            <a href="05-login.html" class="btn btn-kr-ghost btn-sm">Sign In</a>
-            <button class="btn btn-kr-brass btn-sm d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#requirementModal">
-              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+            <a href="05-login.html" class="btn btn-kr-signin btn-sm">Sign In</a>
+            <a href="07-signup.html" class="btn btn-kr-signup btn-sm">Sign Up</a>
+            <button class="btn btn-kr-brass btn-sm d-flex align-items-center gap-1 ms-1" data-bs-toggle="modal" data-bs-target="#requirementModal">
+              <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               Post Requirement
             </button>
           </div>
@@ -71,7 +72,7 @@ function renderFooter() {
               KRINEXA<span class="dot">.</span>
             </div>
             <p class="text-muted small pe-lg-4">
-              Direct engineering matching platform. Krinexa connects enterprises and high-growth teams with vetted senior, junior, intern, and student developers across .NET, MERN, Azure, and SQL.
+              Direct technology matching platform. Connecting high-growth enterprises with vetted senior, junior, intern, and student developers across .NET, MERN, Azure, and SQL Server.
             </p>
             <div class="eyebrow-rule my-3">
               <span>Noida HQ Office</span>
@@ -83,7 +84,7 @@ function renderFooter() {
           </div>
 
           <div class="col-lg-2 col-md-6">
-            <h6 class="text-white font-mono mb-3">NAVIGATION</h6>
+            <h6 class="text-navy font-mono mb-3 fw-bold">NAVIGATION</h6>
             <ul class="list-unstyled d-flex flex-column gap-2 small">
               <li><a href="index.html">Marketplace Home</a></li>
               <li><a href="02-registration.html">Talent Registration</a></li>
@@ -94,7 +95,7 @@ function renderFooter() {
           </div>
 
           <div class="col-lg-3 col-md-6">
-            <h6 class="text-white font-mono mb-3">CORE TECH STACKS</h6>
+            <h6 class="text-navy font-mono mb-3 fw-bold">CORE TECH STACKS</h6>
             <div class="d-flex flex-wrap gap-2">
               <span class="tech-chip">.NET Core</span>
               <span class="tech-chip">ASP.NET</span>
@@ -107,25 +108,25 @@ function renderFooter() {
           </div>
 
           <div class="col-lg-3 col-md-6">
-            <h6 class="text-white font-mono mb-3">PLATFORM STATUS</h6>
+            <h6 class="text-navy font-mono mb-3 fw-bold">PLATFORM STATUS</h6>
             <div class="glass-card p-3 mb-3">
               <div class="d-flex align-items-center gap-2 mb-2">
-                <span class="badge bg-success rounded-circle p-1"></span>
-                <span class="font-mono text-white small">Scoring Engine Live</span>
+                <span class="badge bg-success rounded-circle p-1 pulse-badge"></span>
+                <span class="font-mono text-navy fw-bold small">Scoring Engine Live</span>
               </div>
-              <p class="text-muted mb-0 font-mono" style="font-size: 11px;">
+              <p class="text-muted mb-0 font-mono" style="font-size: 11.5px;">
                 Weighted matching: 40% Tech Stack · 20% Experience Tier
               </p>
             </div>
-            <div class="font-mono text-brass small">
+            <div class="font-mono text-primary fw-bold small">
               15-Day Free Trial Available
             </div>
           </div>
         </div>
 
-        <hr style="border-color: rgba(255, 255, 255, 0.1);" />
+        <hr style="border-color: rgba(37, 99, 235, 0.15);" />
 
-        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between pt-3 text-muted small">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between pt-2 text-muted small">
           <div>© 2026 Krinexa Technologies. All rights reserved.</div>
           <div class="d-flex gap-4 mt-2 mt-md-0 font-mono" style="font-size: 12px;">
             <a href="#">Privacy Policy</a>
@@ -156,9 +157,9 @@ function renderRequirementModal() {
               <span>Client Portal</span>
               <span class="line"></span>
             </div>
-            <h4 class="modal-title text-white font-mono">Post a Requirement</h4>
+            <h4 class="modal-title text-navy font-mono fw-bold">Post a Requirement</h4>
           </div>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body pt-3">
           <form id="reqForm" onsubmit="handleReqSubmit(event)">

@@ -1,6 +1,5 @@
 /**
- * Krinexa Custom Mouse Cursor Animation
- * Interactive glass glowing pointer with spring trailing physics.
+ * Krinexa Custom Mouse Cursor Animation — Blue & Off-White Glass Edition
  */
 document.addEventListener('DOMContentLoaded', () => {
   let dot = document.querySelector('.cursor-dot');
@@ -42,14 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   animate();
 
-  const interactiveSelectors = 'a, button, .btn, .btn-kr-primary, .btn-kr-brass, .btn-kr-ghost, .glass-card, .tick-card, .tech-chip, input, select, textarea, .nav-link-custom';
+  const interactiveSelectors = 'a, button, .btn, .btn-kr-signin, .btn-kr-signup, .btn-kr-brass, .btn-kr-ghost, .glass-card, .tick-card, .tech-chip, input, select, textarea, .nav-link-custom';
   
   function attachHoverListeners() {
     const targets = document.querySelectorAll(interactiveSelectors);
     targets.forEach((target) => {
       target.addEventListener('mouseenter', () => {
         follower.classList.add('hovering');
-        dot.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        dot.style.transform = 'translate(-50%, -50%) scale(1.6)';
       });
 
       target.addEventListener('mouseleave', () => {
