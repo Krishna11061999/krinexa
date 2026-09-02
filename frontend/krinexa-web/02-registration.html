@@ -25,7 +25,7 @@
             "inverse-surface": "#213145",
             "secondary-container": "#8a4cfc",
             "secondary": "#712ae2",
-            "primary": "#000000",
+            "primary": "#712ae2",
             "inverse-primary": "#bec6e0",
             "surface-container-lowest": "#ffffff",
             "on-primary-fixed": "#131b2e",
@@ -51,7 +51,7 @@
             "outline": "#76777d",
             "primary-fixed-dim": "#bec6e0",
             "surface-tint": "#565e74",
-            "tertiary": "#000000",
+            "tertiary": "#712ae2",
             "error": "#ba1a1a",
             "on-tertiary-fixed": "#191c1e",
             "secondary-fixed-dim": "#d2bbff",
@@ -327,7 +327,7 @@
             </div>
 
             <div class="mb-6">
-              <label class="form-label font-body-sm text-on-surface-variant">Email Address (OTP Verification) *</label>
+              <label class="form-label font-body-sm text-on-surface-variant">Email Address (Used for Login & OTP Verification) *</label>
               <div class="input-group">
                 <input type="email" id="email" class="form-control rounded-l-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="you@example.com" required>
                 <button type="button" class="btn btn-outline-secondary font-body-sm px-4" onclick="sendOTP()">Send OTP</button>
@@ -404,6 +404,15 @@
               <div>
                 <label class="form-label font-body-sm text-on-surface-variant">Designation / Role *</label>
                 <input type="text" id="interviewerDesignation" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="e.g. CTO / VP Engineering">
+              </div>
+            </div>
+
+            <!-- EXPLICIT MANDATORY EMAIL FIELD FOR INTERVIEWER / CLIENT -->
+            <div class="mb-4">
+              <label class="form-label font-body-sm text-on-surface-variant">Work Email Address (Used for Login & Match Alerts) *</label>
+              <div class="input-group">
+                <span class="input-group-text bg-surface-container"><span class="material-symbols-outlined text-[18px]">mail</span></span>
+                <input type="email" id="interviewerEmail" class="form-control rounded-r-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="sarah.chen@techflow.com" required>
               </div>
             </div>
 
@@ -606,6 +615,7 @@
 
       if (currentRole === 'interviewer') {
         profileData.name = document.getElementById('interviewerName').value;
+        profileData.email = document.getElementById('interviewerEmail').value;
         profileData.company = document.getElementById('companyName').value;
         profileData.companySize = document.getElementById('companySize').value;
         profileData.companyUrl = document.getElementById('companyUrl').value;
@@ -623,7 +633,7 @@
       users.push(profileData);
       localStorage.setItem('krinexa_users', JSON.stringify(users));
 
-      alert('Registration successful! Profile data saved. Redirecting to Sign In...');
+      alert(`Registration successful for ${profileData.email}! Redirecting to Sign In...`);
       window.location.href = '05-login.html';
     }
   </script>
