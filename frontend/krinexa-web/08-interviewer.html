@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Krinexa — Interviewer Console</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  html,body{ height:900px; }
+  .shell{ display:grid; grid-template-columns:400px 1fr; height:calc(900px - 72px); }
+
+  .qlist{ border-right:1px solid var(--line); overflow:hidden; }
+  .qhead{ padding:22px 26px 16px; }
+  .qhead h2{ font-size:19px; }
+  .qhead p{ font-size:12.5px; color:var(--muted); margin-top:4px; }
+  .qtabs{ display:flex; gap:6px; padding:0 26px 16px; }
+  .qtab{ padding:7px 13px; border:1px solid var(--line-2); font-size:12px; color:var(--ink-soft); }
+  .qtab.active{ background:var(--navy); border-color:var(--navy); color:#fff; font-weight:bold; }
+
+  .qitem{ display:flex; gap:13px; padding:16px 26px; border-top:1px solid var(--line); cursor:pointer; }
+  .qitem.active{ background:var(--panel); box-shadow:inset 3px 0 0 var(--navy); }
+  .qav{ width:38px; height:38px; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'TeX Gyre Adventor'; font-size:13px; flex-shrink:0; }
+  .qmeta{ flex:1; min-width:0; }
+  .qmeta .row1{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .qmeta h4{ font-size:14px; font-family:'TeX Gyre Heros'; font-weight:bold; }
+  .qmeta .req{ font-size:12px; color:var(--ink-soft); margin-top:3px; }
+  .qmeta .when{ font-size:11.5px; color:var(--muted); margin-top:6px; font-family:'TeX Gyre Cursor'; }
+
+  .status{ font-family:'TeX Gyre Cursor'; font-size:10px; padding:3px 8px; white-space:nowrap; }
+  .status.requested{ border:1px solid var(--brass); color:var(--brass); background:var(--brass-soft); }
+  .status.confirmed{ border:1px solid var(--green); color:var(--green); background:var(--green-soft); }
+  .status.completed{ border:1px solid var(--line-2); color:var(--muted); background:var(--panel); }
+
+  .detail{ padding:30px 40px 40px; overflow:hidden; }
+  .dhead{ display:flex; justify-content:space-between; align-items:flex-start; padding-bottom:22px; border-bottom:1px solid var(--line); }
+  .dhead h3{ font-size:20px; }
+  .dhead .sub{ font-size:13px; color:var(--muted); margin-top:6px; }
+
+  .dmeta{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:22px; padding-bottom:22px; border-bottom:1px solid var(--line); }
+  .dmeta div{ padding-right:14px; }
+  .dmeta .lbl{ font-size:11px; color:var(--muted); font-family:'TeX Gyre Cursor'; }
+  .dmeta .val{ font-size:14.5px; margin-top:5px; }
+
+  .candblock{ display:flex; gap:16px; margin-top:24px; padding:20px; }
+  .candblock .cav{ width:52px; height:52px; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'TeX Gyre Adventor'; font-size:17px; flex-shrink:0; }
+  .candblock h4{ font-size:16px; }
+  .candblock .role{ font-size:12.5px; color:var(--muted); margin-top:3px; }
+  .candblock .skills{ display:flex; gap:6px; flex-wrap:wrap; margin-top:12px; }
+  .candblock .links{ margin-top:12px; display:flex; gap:16px; font-family:'TeX Gyre Cursor'; font-size:11.5px; color:var(--navy); }
+
+  .notes{ margin-top:26px; }
+  .notes label{ font-size:12.5px; color:var(--ink-soft); display:block; margin-bottom:8px; }
+  .notes textarea{ width:100%; min-height:90px; border:1px solid var(--line-2); padding:12px; font-family:'TeX Gyre Heros'; font-size:14px; resize:none; }
+
+  .dactions{ display:flex; gap:10px; margin-top:24px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">KRINEXA<span class="dot">.</span></div>
+  <div class="navlinks"><a class="mono" style="color:var(--navy);">Interview Queue</a><a>Requirements</a><a>Project Chat</a><a>Account</a></div>
+  <div style="font-size:12.5px;color:var(--muted);">SIGNED IN · S.IYER@NIMBUSRETAIL.COM</div>
+</div>
+
+<div class="shell">
+  <div class="qlist">
+    <div class="qhead"><h2>Interview Queue</h2><p>Requests routed from Krinexa admin for your organization</p></div>
+    <div class="qtabs">
+      <div class="qtab active">Upcoming</div>
+      <div class="qtab">Requested</div>
+      <div class="qtab">Completed</div>
+    </div>
+
+    <div class="qitem active">
+      <div class="qav">AK</div>
+      <div class="qmeta">
+        <div class="row1"><h4>Arjun K.</h4><span class="status confirmed">CONFIRMED</span></div>
+        <div class="req">Internal CRM — Junior .NET Developer</div>
+        <div class="when">TODAY · 2:00 PM – 2:45 PM</div>
+      </div>
+    </div>
+
+    <div class="qitem">
+      <div class="qav">MS</div>
+      <div class="qmeta">
+        <div class="row1"><h4>Meera S.</h4><span class="status requested">REQUESTED</span></div>
+        <div class="req">Inventory Dashboard — Mid React Dev</div>
+        <div class="when">PROPOSED · SEP 4, 4:30 PM</div>
+      </div>
+    </div>
+
+    <div class="qitem">
+      <div class="qav">RD</div>
+      <div class="qmeta">
+        <div class="row1"><h4>Rohit D.</h4><span class="status requested">REQUESTED</span></div>
+        <div class="req">Inventory Dashboard — Junior Dev</div>
+        <div class="when">PROPOSED · SEP 5, 11:00 AM</div>
+      </div>
+    </div>
+
+    <div class="qitem">
+      <div class="qav">PV</div>
+      <div class="qmeta">
+        <div class="row1"><h4>Priya V.</h4><span class="status completed">COMPLETED</span></div>
+        <div class="req">Landing Page Revamp — Student Intern</div>
+        <div class="when">SEP 1 · FEEDBACK SUBMITTED</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail">
+    <div class="dhead">
+      <div>
+        <h3>Interview — Internal CRM (Junior .NET Developer)</h3>
+        <div class="sub">Requirement #KX-1042 · Confirmed for today, 2:00 PM – 2:45 PM</div>
+      </div>
+      <span class="status confirmed">CONFIRMED</span>
+    </div>
+
+    <div class="dmeta">
+      <div><div class="lbl">DATE &amp; TIME</div><div class="val">Sep 2, 2:00 PM</div></div>
+      <div><div class="lbl">DURATION</div><div class="val">45 min</div></div>
+      <div><div class="lbl">MODE</div><div class="val">Video call</div></div>
+      <div><div class="lbl">REQUESTED BY</div><div class="val">Krinexa Admin</div></div>
+    </div>
+
+    <div class="candblock tick">
+      <div class="cav">AK</div>
+      <div>
+        <h4>Arjun K.</h4>
+        <div class="role">Junior .NET Developer · 2 yrs experience · Match 92%</div>
+        <div class="skills"><span class="chip">ASP.NET Core</span><span class="chip">SQL Server</span><span class="chip">EF Core</span><span class="chip">Azure</span></div>
+        <div class="links"><span>VIEW FULL PROFILE →</span><span>VIEW PROJECTS →</span><span>RESUME.PDF →</span></div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <label>Interview notes (visible to Krinexa admin after submission)</label>
+      <textarea placeholder="Technical assessment, communication, fit for the requirement…"></textarea>
+    </div>
+
+    <div class="dactions">
+      <a class="btn btn-ghost">Reschedule</a>
+      <a class="btn btn-ghost">Join Video Call</a>
+      <a class="btn btn-primary">Mark Completed &amp; Submit Feedback</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

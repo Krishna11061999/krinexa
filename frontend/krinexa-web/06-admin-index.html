@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Krinexa Admin — Overview</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .shell{ display:grid; grid-template-columns:230px 1fr; min-height:900px; }
+
+  .sidenav{ background:var(--navy-dark); color:#fff; padding:26px 0; }
+  .sidenav .brand{ padding:0 24px 22px; font-family:'TeX Gyre Adventor'; font-size:17px; border-bottom:1px solid #26314D; margin-bottom:14px; }
+  .sidenav .brand .tag{ display:block; font-family:'TeX Gyre Cursor'; font-size:10.5px; color:#7C8AAE; margin-top:3px; }
+  .navitem{ display:flex; justify-content:space-between; align-items:center; padding:11px 24px; font-size:13.5px; color:#B7C1DC; cursor:pointer; }
+  .navitem.active{ background:#20304F; color:#fff; box-shadow:inset 3px 0 0 var(--brass); }
+  .navitem .count{ font-family:'TeX Gyre Cursor'; font-size:10.5px; color:#7C8AAE; }
+  .navitem.active .count{ color:var(--brass); }
+
+  .main{ padding:34px 42px 60px; }
+  .pagehead{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:26px; }
+  .pagehead h2{ font-size:23px; }
+  .pagehead p{ color:var(--muted); font-size:13px; margin-top:5px; }
+  .admin-id{ font-family:'TeX Gyre Cursor'; font-size:11.5px; color:var(--muted); }
+
+  .kpirow{ display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-bottom:34px; }
+  .kpi{ padding:18px 16px; }
+  .kpi .num{ font-family:'TeX Gyre Adventor'; font-size:27px; }
+  .kpi .lbl{ font-size:11.5px; color:var(--muted); margin-top:6px; }
+  .kpi.warn .num{ color:var(--brass); }
+
+  .panels{ display:grid; grid-template-columns:1.3fr 1fr; gap:20px; }
+  .panel{ padding:0; }
+  .panel .phead{ display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid var(--line); }
+  .panel .phead h3{ font-size:15px; }
+  .panel .phead .see{ font-family:'TeX Gyre Cursor'; font-size:11px; color:var(--navy); }
+
+  .row{ display:flex; align-items:center; gap:14px; padding:13px 20px; border-bottom:1px solid var(--line); }
+  .row:last-child{ border-bottom:none; }
+  .rav{ width:32px; height:32px; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'TeX Gyre Adventor'; font-size:11px; flex-shrink:0; }
+  .rinfo{ flex:1; min-width:0; }
+  .rinfo h4{ font-size:13.5px; font-family:'TeX Gyre Heros'; font-weight:bold; }
+  .rinfo .sub{ font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .rowbtns{ display:flex; gap:6px; }
+  .rowbtns .btn{ padding:6px 11px; font-size:11px; }
+  .btn-reject{ border-color:var(--red); color:var(--red); background:transparent; }
+  .btn-approve{ background:var(--green); border-color:var(--green); color:#fff; }
+
+  .paything{ padding:13px 20px; border-bottom:1px solid var(--line); display:flex; gap:14px; align-items:center; }
+  .paything:last-child{ border-bottom:none; }
+  .thumb{ width:44px; height:32px; background:var(--panel); border:1px solid var(--line-2); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'TeX Gyre Cursor'; font-size:9px; color:var(--muted); }
+  .payinfo{ flex:1; }
+  .payinfo h4{ font-size:13px; }
+  .payinfo .sub{ font-size:11px; color:var(--muted); margin-top:2px; font-family:'TeX Gyre Cursor'; }
+
+  .activity{ margin-top:20px; }
+  .actrow{ display:flex; gap:12px; padding:11px 0; border-top:1px solid var(--line); font-size:12.5px; }
+  .actrow:first-child{ border-top:none; }
+  .actrow .time{ font-family:'TeX Gyre Cursor'; font-size:10.5px; color:var(--muted); white-space:nowrap; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="sidenav">
+    <div class="brand">KRINEXA<span class="dot" style="color:var(--brass);">.</span><span class="tag">ADMIN CONSOLE</span></div>
+    <div class="navitem active">Overview <span class="count"></span></div>
+    <div class="navitem">Talent <span class="count">12 pending</span></div>
+    <div class="navitem">Requirements <span class="count">7 open</span></div>
+    <div class="navitem">Matching <span class="count"></span></div>
+    <div class="navitem">Interviews <span class="count">4 today</span></div>
+    <div class="navitem">Payments <span class="count">6 pending</span></div>
+    <div class="navitem">Subscriptions <span class="count"></span></div>
+    <div class="navitem">Audit <span class="count"></span></div>
+  </div>
+
+  <div class="main">
+    <div class="pagehead">
+      <div>
+        <h2>Overview</h2>
+        <p>Wednesday, September 2, 2026</p>
+      </div>
+      <div class="admin-id">SIGNED IN AS ADMIN · A.SHARMA@KRINEXA.IN</div>
+    </div>
+
+    <div class="kpirow">
+      <div class="kpi tick"><div class="num">241</div><div class="lbl">Active talent</div></div>
+      <div class="kpi tick warn"><div class="num">12</div><div class="lbl">Pending profiles</div></div>
+      <div class="kpi tick"><div class="num">7</div><div class="lbl">Open requirements</div></div>
+      <div class="kpi tick"><div class="num">4</div><div class="lbl">Interviews today</div></div>
+      <div class="kpi tick"><div class="num">96</div><div class="lbl">Active subscriptions</div></div>
+      <div class="kpi tick warn"><div class="num">6</div><div class="lbl">Payments pending</div></div>
+    </div>
+
+    <div class="panels">
+      <div class="panel tick">
+        <div class="phead"><h3>Pending Profile Approvals</h3><span class="see">VIEW ALL →</span></div>
+        <div class="row">
+          <div class="rav">PV</div>
+          <div class="rinfo"><h4>Priya Verma</h4><div class="sub">Student · B.Tech CSE · React, SQL, C# · submitted 2h ago</div></div>
+          <div class="rowbtns"><a class="btn btn-reject">Reject</a><a class="btn btn-approve">Approve</a></div>
+        </div>
+        <div class="row">
+          <div class="rav">RD</div>
+          <div class="rinfo"><h4>Rohit Dubey</h4><div class="sub">Junior Developer · 1.5 yrs · ASP.NET Core, SQL Server</div></div>
+          <div class="rowbtns"><a class="btn btn-reject">Reject</a><a class="btn btn-approve">Approve</a></div>
+        </div>
+        <div class="row">
+          <div class="rav">MS</div>
+          <div class="rinfo"><h4>Meera Sinha</h4><div class="sub">Experienced · 3 yrs · React, Node.js, MySQL</div></div>
+          <div class="rowbtns"><a class="btn btn-reject">Reject</a><a class="btn btn-approve">Approve</a></div>
+        </div>
+        <div class="row">
+          <div class="rav">AK</div>
+          <div class="rinfo"><h4>Arjun Kapoor</h4><div class="sub">Junior Developer · 2 yrs · ASP.NET Core, Azure</div></div>
+          <div class="rowbtns"><a class="btn btn-reject">Reject</a><a class="btn btn-approve">Approve</a></div>
+        </div>
+
+        <div class="phead" style="border-top:1px solid var(--line);"><h3>Recent Admin Activity</h3><span class="see">AUDIT LOG →</span></div>
+        <div style="padding:4px 20px 18px;">
+          <div class="actrow"><span class="time">10:41 AM</span><span>Payment #KX-P-2291 verified — subscription activated for user #4471</span></div>
+          <div class="actrow"><span class="time">10:12 AM</span><span>Requirement #KX-1088 matched with 4 candidates</span></div>
+          <div class="actrow"><span class="time">9:55 AM</span><span>Profile approved — Rohit Dubey</span></div>
+        </div>
+      </div>
+
+      <div class="panel tick">
+        <div class="phead"><h3>Payment Verification Queue</h3><span class="see">VIEW ALL →</span></div>
+        <div class="paything">
+          <div class="thumb">IMG</div>
+          <div class="payinfo"><h4>user #4471 — ₹10 MONTHLY</h4><div class="sub">REF: UPI-88213741 · SUBMITTED 8:40 AM</div></div>
+          <div class="rowbtns"><a class="btn btn-reject">Reject</a><a class="btn btn-approve">Verify</a></div>
+        </div>
+        <div class="paything">
+          <div class="thumb">IMG</div>
+          <div class="payinfo"><h4>user #4508 — ₹10 MONTHLY</h4><div class="sub">REF: UPI-88220015 · SUBMITTED YESTERDAY</div></div>
+          <div class="rowbtns"><a class="btn btn-reject">Reject</a><a class="btn btn-approve">Verify</a></div>
+        </div>
+        <div class="paything">
+          <div class="thumb">IMG</div>
+          <div class="payinfo"><h4>user #4519 — ₹10 MONTHLY</h4><div class="sub">REF: UPI-88231982 · SUBMITTED YESTERDAY</div></div>
+          <div class="rowbtns"><a class="btn btn-reject">Reject</a><a class="btn btn-approve">Verify</a></div>
+        </div>
+
+        <div class="phead" style="border-top:1px solid var(--line);"><h3>Interviews Today</h3><span class="see">SCHEDULE →</span></div>
+        <div class="row"><div class="rav">AK</div><div class="rinfo"><h4>Arjun K. → Internal CRM</h4><div class="sub">2:00 PM · Confirmed</div></div></div>
+        <div class="row"><div class="rav">MS</div><div class="rinfo"><h4>Meera S. → Inventory Dashboard</h4><div class="sub">4:30 PM · Requested</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

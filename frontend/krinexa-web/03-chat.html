@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Krinexa — Project Chat</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  html,body{ height:900px; overflow:hidden; }
+  .shell{ display:grid; grid-template-columns:320px 1fr; height:calc(900px - 72px); }
+
+  .plist{ border-right:1px solid var(--line); overflow:hidden; }
+  .plist .head{ padding:22px 24px 14px; }
+  .plist .head h2{ font-size:18px; }
+  .plist .head p{ font-size:12.5px; color:var(--muted); margin-top:4px; }
+  .pitem{ display:flex; gap:12px; padding:16px 24px; border-top:1px solid var(--line); cursor:pointer; }
+  .pitem.active{ background:var(--panel); box-shadow:inset 3px 0 0 var(--navy); }
+  .pavatar{ width:38px; height:38px; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'TeX Gyre Adventor'; font-size:13px; flex-shrink:0; }
+  .pmeta{ flex:1; min-width:0; }
+  .pmeta .row1{ display:flex; justify-content:space-between; }
+  .pmeta h4{ font-size:14px; font-family:'TeX Gyre Heros'; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pmeta .time{ font-family:'TeX Gyre Cursor'; font-size:10.5px; color:var(--muted); flex-shrink:0; }
+  .pmeta .snippet{ font-size:12.5px; color:var(--ink-soft); margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .unread{ width:7px; height:7px; background:var(--brass); border-radius:50%; margin-top:6px; flex-shrink:0; }
+
+  .chat{ display:flex; flex-direction:column; }
+  .chead{ display:flex; justify-content:space-between; align-items:center; padding:18px 30px; border-bottom:1px solid var(--line); }
+  .chead h3{ font-size:16px; }
+  .chead .sub{ font-size:12px; color:var(--muted); margin-top:3px; }
+  .assigned{ display:flex; align-items:center; gap:8px; }
+  .assigned .who{ font-size:12px; color:var(--ink-soft); }
+
+  .thread{ flex:1; padding:26px 30px; overflow:hidden; }
+  .sys-msg{ text-align:center; font-family:'TeX Gyre Cursor'; font-size:11.5px; color:var(--muted); margin:14px 0; }
+  .msg{ max-width:62%; margin-bottom:18px; }
+  .msg .bubble{ padding:12px 15px; font-size:14px; line-height:1.45; }
+  .msg .meta{ font-family:'TeX Gyre Cursor'; font-size:10.5px; color:var(--muted); margin-top:5px; }
+  .msg.in .bubble{ background:var(--panel-2); border:1px solid var(--line); }
+  .msg.out{ margin-left:auto; }
+  .msg.out .bubble{ background:var(--navy); color:#fff; }
+  .msg.out .meta{ text-align:right; }
+  .filechip{ display:inline-flex; align-items:center; gap:8px; margin-top:8px; padding:8px 12px; border:1px solid var(--line-2); font-family:'TeX Gyre Cursor'; font-size:11.5px; background:#fff; }
+
+  .composer{ display:flex; gap:10px; padding:18px 30px; border-top:1px solid var(--line); align-items:center; }
+  .composer input{ flex:1; padding:13px 16px; border:1px solid var(--line-2); font-size:14px; font-family:'TeX Gyre Heros'; }
+  .clip{ font-family:'TeX Gyre Cursor'; font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">KRINEXA<span class="dot">.</span></div>
+  <div class="navlinks"><a>Requirements</a><a class="mono" style="color:var(--navy);">Project Chat</a><a>Payments</a><a>Account</a></div>
+  <div class="avatar" style="width:34px;height:34px;font-size:12px;">CM</div>
+</div>
+
+<div class="shell">
+  <div class="plist">
+    <div class="head"><h2>Your Projects</h2><p>Conversations are scoped to each requirement</p></div>
+
+    <div class="pitem active">
+      <div class="pavatar">KX</div>
+      <div class="pmeta">
+        <div class="row1"><h4>Internal CRM — ASP.NET Core</h4><span class="time">10:42</span></div>
+        <div class="snippet">Krinexa Team: We've shortlisted 3 candidates for…</div>
+      </div>
+      <div class="unread"></div>
+    </div>
+
+    <div class="pitem">
+      <div class="pavatar">RS</div>
+      <div class="pmeta">
+        <div class="row1"><h4>Inventory Dashboard — React</h4><span class="time">Yesterday</span></div>
+        <div class="snippet">You: Sounds good, let's schedule for Thursday</div>
+      </div>
+    </div>
+
+    <div class="pitem">
+      <div class="pavatar">KX</div>
+      <div class="pmeta">
+        <div class="row1"><h4>Landing Page Revamp</h4><span class="time">Mon</span></div>
+        <div class="snippet">Krinexa Team: Payment verified, subscription active</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat">
+    <div class="chead">
+      <div>
+        <h3>Internal CRM — ASP.NET Core</h3>
+        <div class="sub">Requirement #KX-1042 · Junior developer · 2 month duration</div>
+      </div>
+      <div class="assigned">
+        <span class="chip chip-green">MATCHED</span>
+        <div class="pavatar" style="width:30px;height:30px;font-size:11px;">AK</div>
+        <span class="who">Arjun K. — Junior .NET Developer</span>
+      </div>
+    </div>
+
+    <div class="thread">
+      <div class="sys-msg">Krinexa matched 3 candidates for this requirement · Sep 1</div>
+
+      <div class="msg in">
+        <div class="bubble">Hi! Thanks for submitting the requirement. We've reviewed it and shortlisted three developers who match your ASP.NET Core + SQL Server stack.</div>
+        <div class="meta">KRINEXA TEAM · 10:18 AM</div>
+      </div>
+
+      <div class="msg out">
+        <div class="bubble">Great, can you share their profiles? Also attaching our detailed requirement brief.</div>
+        <div class="filechip">📎 requirement_brief.pdf · 240 KB</div>
+        <div class="meta">10:25 AM</div>
+      </div>
+
+      <div class="msg in">
+        <div class="bubble">Sharing now. Arjun K. is our top match — 92% score, immediate availability, 2 years on ASP.NET Core + SQL Server projects similar to yours.</div>
+        <div class="meta">KRINEXA TEAM · 10:41 AM</div>
+      </div>
+
+      <div class="msg in">
+        <div class="bubble">We've shortlisted 3 candidates for your review — take a look and let us know who you'd like to interview.</div>
+        <div class="meta">KRINEXA TEAM · 10:42 AM</div>
+      </div>
+    </div>
+
+    <div class="composer">
+      <span class="clip">📎</span>
+      <input placeholder="Message the Krinexa team…">
+      <a class="btn btn-primary" style="padding:11px 20px;">Send</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

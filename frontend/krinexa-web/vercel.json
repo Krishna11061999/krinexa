@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/index", "destination": "/index.html" },
+    { "source": "/krinexa", "destination": "/index.html" },
+    { "source": "/registration", "destination": "/02-registration.html" },
+    { "source": "/chat", "destination": "/03-chat.html" },
+    { "source": "/project-interest", "destination": "/04-project-interest.html" },
+    { "source": "/login", "destination": "/05-login.html" },
+    { "source": "/admin", "destination": "/06-admin-index.html" },
+    { "source": "/signup", "destination": "/07-signup.html" },
+    { "source": "/interviewer", "destination": "/08-interviewer.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    }
+  ]
+}

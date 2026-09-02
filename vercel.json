@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/krinexa-web/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/assets/(.*)", "dest": "/frontend/krinexa-web/assets/$1" },
+    { "src": "/glass-theme.css", "dest": "/frontend/krinexa-web/glass-theme.css" },
+    { "src": "/components.js", "dest": "/frontend/krinexa-web/components.js" },
+    { "src": "/cursor-anim.js", "dest": "/frontend/krinexa-web/cursor-anim.js" },
+    { "src": "/02-registration.html", "dest": "/frontend/krinexa-web/02-registration.html" },
+    { "src": "/03-chat.html", "dest": "/frontend/krinexa-web/03-chat.html" },
+    { "src": "/04-project-interest.html", "dest": "/frontend/krinexa-web/04-project-interest.html" },
+    { "src": "/05-login.html", "dest": "/frontend/krinexa-web/05-login.html" },
+    { "src": "/06-admin-index.html", "dest": "/frontend/krinexa-web/06-admin-index.html" },
+    { "src": "/07-signup.html", "dest": "/frontend/krinexa-web/07-signup.html" },
+    { "src": "/08-interviewer.html", "dest": "/frontend/krinexa-web/08-interviewer.html" },
+    { "src": "/krinexa", "dest": "/frontend/krinexa-web/index.html" },
+    { "src": "/(.*)", "dest": "/frontend/krinexa-web/index.html" }
+  ]
+}
