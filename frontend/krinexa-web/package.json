@@ -1,0 +1,9 @@
+{
+  "name": "krinexa-web",
+  "version": "1.0.0",
+  "description": "Krinexa Frontend",
+  "scripts": {
+    "build": "echo 'No build required'",
+    "install": "echo 'No install required'"
+  }
+}
