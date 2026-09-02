@@ -1,105 +1,461 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<title>Krinexa — Sign In</title>
-<link rel="stylesheet" href="styles.css">
-<style>
-  html,body{ height:900px; }
-  .shell{ display:grid; grid-template-columns:1fr 1fr; height:calc(900px - 72px); }
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Krinexa — Sign In</title>
+  <meta name="description" content="Sign in to your Krinexa account to view candidate matches, post requirements, or manage technical recruitment.">
 
-  .brandside{ background:var(--navy); color:#fff; padding:60px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; }
-  .brandside .bg-grid{ position:absolute; inset:0; opacity:0.10;
-    background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
-    background-size:36px 36px; }
-  .brandside .content{ position:relative; }
-  .brandside h1{ font-size:34px; max-width:420px; line-height:1.15; }
-  .brandside p{ margin-top:16px; color:#C9D2E4; max-width:380px; font-size:14.5px; }
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&family=Geist:wght@500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 
-  .flowmini{ position:relative; margin-top:44px; display:flex; gap:0; }
-  .fnode{ flex:1; border-top:1px solid #33436A; padding-top:14px; padding-right:14px; }
-  .fnode:first-child{ padding-left:0; }
-  .fnode .n{ font-family:'TeX Gyre Cursor'; font-size:11px; color:var(--brass); }
-  .fnode .t{ font-size:12.5px; color:#DDE3EF; margin-top:5px; }
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  .brandside .office{ position:relative; font-family:'TeX Gyre Cursor'; font-size:11.5px; color:#8FA0C2; }
+  <!-- Tailwind CSS CDN & Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary": "#ffffff",
+            "inverse-surface": "#213145",
+            "secondary-container": "#8a4cfc",
+            "secondary": "#712ae2",
+            "primary": "#000000",
+            "inverse-primary": "#bec6e0",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed": "#131b2e",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-surface-variant": "#45464d",
+            "secondary-fixed": "#eaddff",
+            "surface-variant": "#d3e4fe",
+            "tertiary-container": "#191c1e",
+            "on-secondary-fixed-variant": "#5a00c6",
+            "primary-container": "#131b2e",
+            "inverse-on-surface": "#eaf1ff",
+            "on-secondary": "#ffffff",
+            "surface-container-high": "#dce9ff",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed": "#25005a",
+            "on-primary-container": "#7c839b",
+            "on-surface": "#0b1c30",
+            "surface-container-low": "#eff4ff",
+            "surface-dim": "#cbdbf5",
+            "on-tertiary-fixed-variant": "#444749",
+            "outline-variant": "#c6c6cd",
+            "tertiary-fixed": "#e0e3e5",
+            "outline": "#76777d",
+            "primary-fixed-dim": "#bec6e0",
+            "surface-tint": "#565e74",
+            "tertiary": "#000000",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed": "#191c1e",
+            "secondary-fixed-dim": "#d2bbff",
+            "tertiary-fixed-dim": "#c4c7c9",
+            "error-container": "#ffdad6",
+            "surface-container": "#e5eeff",
+            "surface-container-highest": "#d3e4fe",
+            "background": "#f8f9ff",
+            "primary-fixed": "#dae2fd",
+            "on-error": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "on-secondary-container": "#fffbff",
+            "on-tertiary-container": "#818486",
+            "on-tertiary": "#ffffff",
+            "on-background": "#0b1c30",
+            "surface": "#f8f9ff"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "gutter": "24px",
+            "container-max": "1280px",
+            "base": "8px",
+            "margin-mobile": "16px",
+            "section-gap": "80px"
+          },
+          fontFamily: {
+            "display-xl": ["Hanken Grotesk", "sans-serif"],
+            "headline-md": ["Hanken Grotesk", "sans-serif"],
+            "label-mono": ["Geist", "monospace"],
+            "body-md": ["Inter", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "headline-lg": ["Hanken Grotesk", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
 
-  .formside{ display:flex; align-items:center; justify-content:center; }
-  .formcard{ width:400px; }
-  .formcard h2{ font-size:24px; }
-  .formcard > p{ color:var(--muted); font-size:13.5px; margin-top:8px; }
+  <style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        scroll-behavior: smooth;
+      }
+    }
+    ::-webkit-scrollbar { display: none; }
 
-  .roletabs{ display:flex; margin-top:28px; border:1px solid var(--line-2); }
-  .roletab{ flex:1; text-align:center; padding:11px 6px; font-family:'TeX Gyre Cursor'; font-size:11.5px; color:var(--muted); cursor:pointer; border-right:1px solid var(--line-2); }
-  .roletab:last-child{ border-right:none; }
-  .roletab.active{ background:var(--navy); color:#fff; }
+    .interactive-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .interactive-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(
+        800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(138, 76, 252, 0.12),
+        transparent 40%
+      );
+      z-index: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      opacity: 0;
+    }
+    .interactive-card:hover::before { opacity: 1; }
+    .interactive-card > * { position: relative; z-index: 1; }
 
-  .roledesc{ margin-top:14px; font-size:12.5px; color:var(--ink-soft); padding:10px 12px; background:var(--panel); border:1px solid var(--line); }
+    .login-role-btn.active {
+      background-color: #712ae2 !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 14px rgba(113, 42, 226, 0.35);
+    }
 
-  form{ margin-top:22px; }
-  .field{ margin-bottom:18px; }
-  .field label{ display:block; font-size:12.5px; color:var(--ink-soft); margin-bottom:7px; }
-  .field input{ width:100%; padding:12px 13px; border:1px solid var(--line-2); font-family:'TeX Gyre Heros'; font-size:14px; background:#fff; }
-  .field-row{ display:flex; justify-content:space-between; align-items:center; font-size:12.5px; margin:-6px 0 20px; }
-  .field-row a{ color:var(--navy); font-family:'TeX Gyre Cursor'; font-size:11.5px; }
+    #rainbow-cursor-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
 
-  .signin-btn{ width:100%; justify-content:center; padding:13px; }
-  .altrow{ margin-top:20px; text-align:center; font-size:13px; color:var(--ink-soft); }
-  .altrow a{ color:var(--navy); font-weight:bold; }
-
-  .admin-note{ margin-top:16px; display:flex; gap:8px; align-items:flex-start; font-size:11.5px; color:var(--muted); }
-</style>
+  <!-- Three.js for Shader Background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body>
+<body class="bg-background font-body-md text-on-background relative overflow-x-hidden">
 
-<div class="topbar">
-  <div class="wordmark">KRINEXA<span class="dot">.</span></div>
-  <div class="navlinks"><a>About</a><a>For Clients</a><a>Talent Network</a></div>
-  <div style="font-size:13px;color:var(--muted);">New here? <a style="color:var(--navy);font-weight:bold;">Join the Talent Network</a></div>
-</div>
+  <!-- Rainbow Cursor Canvas -->
+  <canvas id="rainbow-cursor-canvas"></canvas>
 
-<div class="shell">
-  <div class="brandside">
-    <div class="bg-grid"></div>
-    <div class="content">
-      <div class="eyebrow-rule" style="color:#8FA0C2;margin-bottom:20px;"><span>ONE ACCOUNT · THREE ROLES</span><span class="line" style="background:#33436A;"></span></div>
-      <h1>One requirement.<br>One team.<br>The right talent.</h1>
-      <p>Sign in as talent to see your matches, as a client or interviewer to manage requirements and interviews, or as Krinexa admin to review and verify.</p>
-      <div class="flowmini">
-        <div class="fnode" style="border-top-color:var(--brass);"><div class="n">TALENT</div><div class="t">Profile, matches, interviews</div></div>
-        <div class="fnode"><div class="n">CLIENT / INTERVIEWER</div><div class="t">Requirements, chat, candidates</div></div>
-        <div class="fnode"><div class="n">ADMIN</div><div class="t">Review, verify, audit</div></div>
-      </div>
-    </div>
-    <div class="office">SECTOR 49, NOIDA, UTTAR PRADESH – 201301</div>
+  <!-- Shader Background -->
+  <div class="fixed inset-0 w-full h-full -z-20 pointer-events-none">
+    <canvas class="w-full h-full opacity-60" id="shader-canvas"></canvas>
   </div>
 
-  <div class="formside">
-    <div class="formcard">
-      <h2>Sign in to Krinexa</h2>
-      <p>Choose your account type — the same krinexa.in sign-in serves all three.</p>
+  <script>
+    const canvas = document.getElementById('shader-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const scene = new THREE.Scene();
+    const geometry = new THREE.PlaneGeometry(2, 2);
+    const material = new THREE.ShaderMaterial({
+      uniforms: {
+        u_time: { value: 0 },
+        u_resolution: { value: new THREE.Vector2() }
+      },
+      vertexShader: `
+        varying vec2 v_texCoord;
+        void main() {
+          v_texCoord = uv;
+          gl_Position = vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        precision highp float;
+        varying vec2 v_texCoord;
+        uniform float u_time;
+        uniform vec2 u_resolution;
 
-      <div class="roletabs">
-        <div class="roletab active">JOB SEARCH / TALENT</div>
-        <div class="roletab">CLIENT &amp; INTERVIEWER</div>
-        <div class="roletab">ADMIN</div>
+        void main() {
+            vec2 uv = v_texCoord;
+            float speed = u_time * 0.2;
+            float wave = sin(uv.x * 3.0 + speed) * 0.1;
+            wave += sin(uv.y * 2.0 - speed * 1.5) * 0.05;
+            float gradient = uv.y + wave;
+            
+            vec3 c1 = vec3(0.05, 0.09, 0.16);
+            vec3 c2 = vec3(0.5, 0.2, 0.9);
+            vec3 c3 = vec3(0.2, 0.5, 1.0);
+            vec3 c4 = vec3(0.1, 0.8, 0.6);
+            
+            vec3 color = mix(c1, c2, smoothstep(0.3, 0.5, gradient));
+            color = mix(color, c3, smoothstep(0.5, 0.7, gradient));
+            color = mix(color, c4, smoothstep(0.7, 0.9, gradient));
+            color += sin(uv.x * 10.0 + u_time) * 0.02;
+
+            gl_FragColor = vec4(color * 0.4, 0.15);
+        }
+      `,
+      transparent: true
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    function resize() {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      material.uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function animate(time) {
+      material.uniforms.u_time.value = time * 0.001;
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  </script>
+
+  <!-- Navigation Header -->
+  <header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="h-20 w-full px-margin-mobile lg:px-gutter max-w-container-max mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-base">
+        <div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center font-headline-md font-bold text-lg shadow-sm">K</div>
+        <span class="font-headline-md text-headline-md tracking-tight text-on-surface">Krinexa</span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-gutter">
+        <a class="text-body-sm font-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="index.html#how-it-works">How it Works</a>
+        <a class="text-body-sm font-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="index.html#for-developers">For Developers</a>
+        <a class="text-body-sm font-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="index.html#for-clients">For Clients</a>
+        <a class="text-body-sm font-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="index.html#values">Values</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <a href="05-login.html" class="px-6 py-2 text-on-surface font-body-sm hover:text-secondary transition-colors font-bold">Sign In</a>
+        <a href="07-signup.html" class="px-6 py-2 bg-secondary text-on-secondary font-body-sm rounded-lg hover:bg-secondary-container transition-all shadow-sm">Sign Up</a>
       </div>
-      <div class="roledesc">Signing in as talent shows your profile status, current matches and interview requests.</div>
+    </div>
+  </header>
 
-      <form>
-        <div class="field"><label>Email</label><input placeholder="you@example.com"></div>
-        <div class="field"><label>Password</label><input placeholder="••••••••" type="password"></div>
-        <div class="field-row">
-          <label style="display:flex;align-items:center;gap:7px;"><input type="checkbox" style="width:auto;"> Keep me signed in</label>
-          <a>Forgot password?</a>
+  <!-- Main Container -->
+  <main class="w-full pt-28 pb-20 min-h-[calc(100vh-80px)] flex items-center justify-center">
+    <div class="max-w-container-max mx-auto px-margin-mobile lg:px-gutter w-full">
+      
+      <!-- Login Form Card -->
+      <div class="bg-surface/90 backdrop-blur-xl shadow-2xl rounded-3xl p-6 lg:p-12 border border-white/40 interactive-card max-w-[550px] mx-auto">
+        
+        <div class="text-center mb-8">
+          <div class="w-12 h-12 rounded-2xl bg-secondary text-on-secondary flex items-center justify-center font-headline-md font-bold text-2xl mx-auto mb-3 shadow-lg">K</div>
+          <h2 class="font-display-xl text-[28px] lg:text-[34px] text-on-surface">Welcome Back</h2>
+          <p class="font-body-sm text-on-surface-variant mt-1">Sign in to manage your requirements, candidate matches, or talent profile.</p>
         </div>
-        <a class="btn btn-primary signin-btn">Sign In</a>
-      </form>
 
-      <div class="altrow">Don't have an account? <a>Join the Talent Network</a></div>
+        <!-- Role Selector Tabs -->
+        <div class="grid grid-cols-3 gap-2 p-1.5 bg-surface-container rounded-2xl mb-6">
+          <button type="button" class="login-role-btn active py-2.5 rounded-xl font-body-sm font-semibold text-center transition-all" onclick="selectLoginRole('candidate')">
+            👨‍💻 Candidate
+          </button>
+          <button type="button" class="login-role-btn py-2.5 rounded-xl font-body-sm font-semibold text-center transition-all" onclick="selectLoginRole('interviewer')">
+            🏢 Interviewer
+          </button>
+          <button type="button" class="login-role-btn py-2.5 rounded-xl font-body-sm font-semibold text-center transition-all" onclick="selectLoginRole('admin')">
+            ⚙️ Admin
+          </button>
+        </div>
+
+        <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+          
+          <div class="mb-4">
+            <label class="form-label font-body-sm text-on-surface-variant">Email Address or Username *</label>
+            <div class="input-group">
+              <span class="input-group-text bg-surface-container"><span class="material-symbols-outlined text-[18px]">mail</span></span>
+              <input type="email" id="loginEmail" class="form-control rounded-r-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="you@example.com" required>
+            </div>
+          </div>
+
+          <div class="mb-4" id="passwordGroup">
+            <div class="flex justify-between items-center mb-1">
+              <label class="form-label font-body-sm text-on-surface-variant mb-0">Password *</label>
+              <a href="#" class="text-secondary text-xs hover:underline" onclick="toggleOtpLogin()">Login via OTP instead?</a>
+            </div>
+            <div class="input-group">
+              <span class="input-group-text bg-surface-container"><span class="material-symbols-outlined text-[18px]">lock</span></span>
+              <input type="password" id="loginPassword" class="form-control rounded-r-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="••••••••">
+            </div>
+          </div>
+
+          <div class="mb-4 hidden" id="otpGroup">
+            <label class="form-label font-body-sm text-on-surface-variant">One-Time Password (OTP)</label>
+            <div class="input-group">
+              <input type="text" id="otpInput" class="form-control rounded-l-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="Enter 6-digit OTP">
+              <button type="button" class="btn btn-outline-secondary font-body-sm px-4" onclick="sendLoginOTP()">Send OTP</button>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between mb-6">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="rememberMe">
+              <label class="form-check-label font-body-sm text-on-surface-variant" for="rememberMe">Remember me</label>
+            </div>
+            <a href="#" class="text-secondary text-xs hover:underline" onclick="alert('Password reset link sent to your registered email.')">Forgot Password?</a>
+          </div>
+
+          <button type="submit" class="w-full py-4 bg-secondary text-on-secondary font-headline-md text-[16px] rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+            Sign In to Account →
+          </button>
+
+          <div class="text-center mt-6 pt-4 border-t border-outline-variant/30 text-body-sm text-on-surface-variant">
+            Don't have a Krinexa account yet? <a href="07-signup.html" class="text-secondary font-semibold hover:underline">Register now</a>
+          </div>
+
+        </form>
+
+      </div>
     </div>
-  </div>
-</div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full bg-surface-container-low/80 backdrop-blur-md py-8 border-t border-outline-variant/30">
+    <div class="max-w-container-max mx-auto px-margin-mobile lg:px-gutter flex flex-col sm:flex-row justify-between items-center text-body-sm text-on-surface-variant">
+      <div>© 2026 Krinexa.in. All rights reserved.</div>
+      <div class="flex gap-4 mt-2 sm:mt-0">
+        <a href="index.html" class="hover:text-secondary">Home</a>
+        <a href="07-signup.html" class="hover:text-secondary">Sign Up</a>
+        <a href="06-admin-index.html" class="hover:text-secondary">Admin Portal</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    let activeLoginRole = 'candidate';
+    let isOtpMode = false;
+
+    function selectLoginRole(role) {
+      activeLoginRole = role;
+      document.querySelectorAll('.login-role-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    function toggleOtpLogin() {
+      isOtpMode = !isOtpMode;
+      const pwdGroup = document.getElementById('passwordGroup');
+      const otpGroup = document.getElementById('otpGroup');
+
+      if (isOtpMode) {
+        pwdGroup.classList.add('hidden');
+        otpGroup.classList.remove('hidden');
+      } else {
+        pwdGroup.classList.remove('hidden');
+        otpGroup.classList.add('hidden');
+      }
+    }
+
+    function sendLoginOTP() {
+      const email = document.getElementById('loginEmail').value;
+      if (!email) {
+        alert('Please enter your email address first.');
+        return;
+      }
+      alert(`OTP sent to ${email}! Enter 123456 to verify.`);
+      document.getElementById('otpInput').value = '123456';
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('loginEmail').value;
+      
+      alert(`Welcome back! Logged in successfully as ${activeLoginRole.toUpperCase()} (${email}). Redirecting to portal...`);
+
+      if (activeLoginRole === 'admin') {
+        window.location.href = '06-admin-index.html';
+      } else if (activeLoginRole === 'interviewer') {
+        window.location.href = '04-project-interest.html';
+      } else {
+        window.location.href = 'index.html';
+      }
+    }
+  </script>
+
+  <!-- Rainbow Mouse Cursor Script -->
+  <script>
+    (function initRainbowCursor() {
+      const canvas = document.getElementById('rainbow-cursor-canvas');
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      let hue = 0;
+      let mouseX = width / 2;
+      let mouseY = height / 2;
+      let lastMouseX = mouseX;
+      let lastMouseY = mouseY;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        const distance = Math.hypot(mouseX - lastMouseX, mouseY - lastMouseY);
+        const count = Math.min(Math.floor(distance / 4), 6);
+
+        for (let i = 0; i < count; i++) {
+          hue = (hue + 2) % 360;
+          particles.push({
+            x: mouseX + (Math.random() - 0.5) * 8,
+            y: mouseY + (Math.random() - 0.5) * 8,
+            vx: (Math.random() - 0.5) * 2,
+            vy: (Math.random() - 0.5) * 2 - 1,
+            size: Math.random() * 8 + 4,
+            color: `hsl(${hue}, 100%, 65%)`,
+            alpha: 1
+          });
+        }
+        lastMouseX = mouseX;
+        lastMouseY = mouseY;
+      });
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.size *= 0.95;
+          p.alpha -= 0.025;
+
+          if (p.alpha <= 0 || p.size <= 0.5) {
+            particles.splice(i, 1);
+            continue;
+          }
+
+          ctx.save();
+          ctx.globalAlpha = p.alpha;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.shadowColor = p.color;
+          ctx.shadowBlur = 12;
+          ctx.fill();
+          ctx.restore();
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+  </script>
 
 </body>
 </html>

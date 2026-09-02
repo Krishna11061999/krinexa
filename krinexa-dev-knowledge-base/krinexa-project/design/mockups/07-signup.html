@@ -1,113 +1,708 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<title>Krinexa — Sign Up</title>
-<link rel="stylesheet" href="styles.css">
-<style>
-  html,body{ height:900px; }
-  .shell{ display:grid; grid-template-columns:1fr 1fr; height:calc(900px - 72px); }
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Krinexa — Sign Up & Registration</title>
+  <meta name="description" content="Create your Krinexa profile. Upload your resume for auto-fill matching, add your Portfolio, GitHub, and LinkedIn links, or register as a company/interviewer.">
 
-  .brandside{ background:var(--navy); color:#fff; padding:60px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; }
-  .brandside .bg-grid{ position:absolute; inset:0; opacity:0.10;
-    background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
-    background-size:36px 36px; }
-  .brandside .content{ position:relative; }
-  .brandside h1{ font-size:34px; max-width:420px; line-height:1.15; }
-  .brandside p{ margin-top:16px; color:#C9D2E4; max-width:380px; font-size:14.5px; }
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&family=Geist:wght@500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 
-  .flowmini{ position:relative; margin-top:44px; display:flex; gap:0; }
-  .fnode{ flex:1; border-top:1px solid #33436A; padding-top:14px; padding-right:14px; }
-  .fnode:first-child{ padding-left:0; }
-  .fnode .n{ font-family:'TeX Gyre Cursor'; font-size:11px; color:var(--brass); }
-  .fnode .t{ font-size:12.5px; color:#DDE3EF; margin-top:5px; }
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  .brandside .office{ position:relative; font-family:'TeX Gyre Cursor'; font-size:11.5px; color:#8FA0C2; }
+  <!-- Tailwind CSS CDN & Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary": "#ffffff",
+            "inverse-surface": "#213145",
+            "secondary-container": "#8a4cfc",
+            "secondary": "#712ae2",
+            "primary": "#000000",
+            "inverse-primary": "#bec6e0",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed": "#131b2e",
+            "on-primary-fixed-variant": "#3f465c",
+            "on-surface-variant": "#45464d",
+            "secondary-fixed": "#eaddff",
+            "surface-variant": "#d3e4fe",
+            "tertiary-container": "#191c1e",
+            "on-secondary-fixed-variant": "#5a00c6",
+            "primary-container": "#131b2e",
+            "inverse-on-surface": "#eaf1ff",
+            "on-secondary": "#ffffff",
+            "surface-container-high": "#dce9ff",
+            "on-error-container": "#93000a",
+            "on-secondary-fixed": "#25005a",
+            "on-primary-container": "#7c839b",
+            "on-surface": "#0b1c30",
+            "surface-container-low": "#eff4ff",
+            "surface-dim": "#cbdbf5",
+            "on-tertiary-fixed-variant": "#444749",
+            "outline-variant": "#c6c6cd",
+            "tertiary-fixed": "#e0e3e5",
+            "outline": "#76777d",
+            "primary-fixed-dim": "#bec6e0",
+            "surface-tint": "#565e74",
+            "tertiary": "#000000",
+            "error": "#ba1a1a",
+            "on-tertiary-fixed": "#191c1e",
+            "secondary-fixed-dim": "#d2bbff",
+            "tertiary-fixed-dim": "#c4c7c9",
+            "error-container": "#ffdad6",
+            "surface-container": "#e5eeff",
+            "surface-container-highest": "#d3e4fe",
+            "background": "#f8f9ff",
+            "primary-fixed": "#dae2fd",
+            "on-error": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "on-secondary-container": "#fffbff",
+            "on-tertiary-container": "#818486",
+            "on-tertiary": "#ffffff",
+            "on-background": "#0b1c30",
+            "surface": "#f8f9ff"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "gutter": "24px",
+            "container-max": "1280px",
+            "base": "8px",
+            "margin-mobile": "16px",
+            "section-gap": "80px"
+          },
+          fontFamily: {
+            "display-xl": ["Hanken Grotesk", "sans-serif"],
+            "headline-md": ["Hanken Grotesk", "sans-serif"],
+            "label-mono": ["Geist", "monospace"],
+            "body-md": ["Inter", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "headline-lg": ["Hanken Grotesk", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
 
-  .formside{ display:flex; align-items:center; justify-content:center; padding:24px 0; }
-  .formcard{ width:420px; }
-  .formcard h2{ font-size:24px; }
-  .formcard > p{ color:var(--muted); font-size:13.5px; margin-top:8px; }
+  <style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        scroll-behavior: smooth;
+      }
+    }
+    ::-webkit-scrollbar { display: none; }
 
-  .roletabs{ display:flex; margin-top:26px; border:1px solid var(--line-2); }
-  .roletab{ flex:1; text-align:center; padding:11px 6px; font-family:'TeX Gyre Cursor'; font-size:11.5px; color:var(--muted); cursor:pointer; border-right:1px solid var(--line-2); }
-  .roletab:last-child{ border-right:none; }
-  .roletab.active{ background:var(--navy); color:#fff; }
+    .interactive-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .interactive-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(
+        800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(138, 76, 252, 0.12),
+        transparent 40%
+      );
+      z-index: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      opacity: 0;
+    }
+    .interactive-card:hover::before { opacity: 1; }
+    .interactive-card > * { position: relative; z-index: 1; }
 
-  .roledesc{ margin-top:14px; font-size:12.5px; color:var(--ink-soft); padding:10px 12px; background:var(--panel); border:1px solid var(--line); }
+    .role-btn.active {
+      background-color: #712ae2 !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 14px rgba(113, 42, 226, 0.35);
+    }
 
-  form{ margin-top:20px; }
-  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-  .field{ margin-bottom:16px; }
-  .field label{ display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-soft); margin-bottom:7px; }
-  .field label .opt{ color:var(--muted); font-family:'TeX Gyre Cursor'; font-size:10.5px; }
-  .field input{ width:100%; padding:11px 13px; border:1px solid var(--line-2); font-family:'TeX Gyre Heros'; font-size:14px; background:#fff; }
-  .otp-row{ display:flex; gap:8px; }
-  .otp-row input{ flex:1; }
-  .otp-row .btn{ padding:11px 14px; font-size:11.5px; white-space:nowrap; }
+    #rainbow-cursor-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
 
-  .signup-btn{ width:100%; justify-content:center; padding:13px; margin-top:6px; }
-  .terms{ font-size:11.5px; color:var(--muted); margin-top:12px; text-align:center; }
-  .altrow{ margin-top:18px; text-align:center; font-size:13px; color:var(--ink-soft); }
-  .altrow a{ color:var(--navy); font-weight:bold; }
-</style>
+  <!-- Three.js for Shader Background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body>
+<body class="bg-background font-body-md text-on-background relative overflow-x-hidden">
 
-<div class="topbar">
-  <div class="wordmark">KRINEXA<span class="dot">.</span></div>
-  <div class="navlinks"><a>About</a><a>For Clients</a><a>Technology</a></div>
-  <div style="font-size:13px;color:var(--muted);">Already have an account? <a style="color:var(--navy);font-weight:bold;">Sign In</a></div>
-</div>
+  <!-- Rainbow Cursor Canvas -->
+  <canvas id="rainbow-cursor-canvas"></canvas>
 
-<div class="shell">
-  <div class="brandside">
-    <div class="bg-grid"></div>
-    <div class="content">
-      <div class="eyebrow-rule" style="color:#8FA0C2;margin-bottom:20px;"><span>CREATE AN ACCOUNT</span><span class="line" style="background:#33436A;"></span></div>
-      <h1>Join the matching loop, on the right side of it.</h1>
-      <p>Talent profiles get scored against live requirements. Interviewer accounts let your organization schedule and run interviews directly inside Krinexa.</p>
-      <div class="flowmini">
-        <div class="fnode" style="border-top-color:var(--brass);"><div class="n">JOB SEEKER / TALENT</div><div class="t">Build a profile, get matched</div></div>
-        <div class="fnode"><div class="n">INTERVIEWER</div><div class="t">Run interviews for your org's requirements</div></div>
-      </div>
-    </div>
-    <div class="office">SECTOR 49, NOIDA, UTTAR PRADESH – 201301</div>
+  <!-- Shader Background -->
+  <div class="fixed inset-0 w-full h-full -z-20 pointer-events-none">
+    <canvas class="w-full h-full opacity-60" id="shader-canvas"></canvas>
   </div>
 
-  <div class="formside">
-    <div class="formcard">
-      <h2>Create your account</h2>
-      <p>Choose the account type that matches what you'll do on Krinexa.</p>
+  <script>
+    const canvas = document.getElementById('shader-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const scene = new THREE.Scene();
+    const geometry = new THREE.PlaneGeometry(2, 2);
+    const material = new THREE.ShaderMaterial({
+      uniforms: {
+        u_time: { value: 0 },
+        u_resolution: { value: new THREE.Vector2() }
+      },
+      vertexShader: `
+        varying vec2 v_texCoord;
+        void main() {
+          v_texCoord = uv;
+          gl_Position = vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        precision highp float;
+        varying vec2 v_texCoord;
+        uniform float u_time;
+        uniform vec2 u_resolution;
 
-      <div class="roletabs">
-        <div class="roletab">JOB SEEKER / TALENT</div>
-        <div class="roletab active">INTERVIEWER</div>
+        void main() {
+            vec2 uv = v_texCoord;
+            float speed = u_time * 0.2;
+            float wave = sin(uv.x * 3.0 + speed) * 0.1;
+            wave += sin(uv.y * 2.0 - speed * 1.5) * 0.05;
+            float gradient = uv.y + wave;
+            
+            vec3 c1 = vec3(0.05, 0.09, 0.16);
+            vec3 c2 = vec3(0.5, 0.2, 0.9);
+            vec3 c3 = vec3(0.2, 0.5, 1.0);
+            vec3 c4 = vec3(0.1, 0.8, 0.6);
+            
+            vec3 color = mix(c1, c2, smoothstep(0.3, 0.5, gradient));
+            color = mix(color, c3, smoothstep(0.5, 0.7, gradient));
+            color = mix(color, c4, smoothstep(0.7, 0.9, gradient));
+            color += sin(uv.x * 10.0 + u_time) * 0.02;
+
+            gl_FragColor = vec4(color * 0.4, 0.15);
+        }
+      `,
+      transparent: true
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    function resize() {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      material.uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function animate(time) {
+      material.uniforms.u_time.value = time * 0.001;
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  </script>
+
+  <!-- Navigation Header -->
+  <header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="h-20 w-full px-margin-mobile lg:px-gutter max-w-container-max mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-base">
+        <div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center font-headline-md font-bold text-lg shadow-sm">K</div>
+        <span class="font-headline-md text-headline-md tracking-tight text-on-surface">Krinexa</span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-gutter">
+        <a class="text-body-sm font-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="index.html#how-it-works">How it Works</a>
+        <a class="text-body-sm font-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="index.html#for-developers">For Developers</a>
+        <a class="text-body-sm font-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="index.html#for-clients">For Clients</a>
+        <a class="text-body-sm font-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="index.html#values">Values</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <a href="05-login.html" class="px-6 py-2 text-on-surface font-body-sm hover:text-secondary transition-colors">Sign In</a>
+        <a href="07-signup.html" class="px-6 py-2 bg-secondary text-on-secondary font-body-sm rounded-lg hover:bg-secondary-container transition-all shadow-sm">Sign Up</a>
       </div>
-      <div class="roledesc">Interviewer accounts are linked to a client organization already registered with Krinexa — you'll confirm your organization on the next step.</div>
-
-      <form>
-        <div class="grid2">
-          <div class="field"><label>Full name</label><input placeholder="e.g. Sana Iyer"></div>
-          <div class="field"><label>Role / title</label><input placeholder="e.g. Engineering Manager"></div>
-        </div>
-        <div class="field"><label>Organization</label><input placeholder="e.g. Nimbus Retail Pvt. Ltd."></div>
-        <div class="field">
-          <label>Work email <span class="opt">otp verification</span></label>
-          <div class="otp-row"><input placeholder="you@company.com"><a class="btn btn-ghost">Send OTP</a></div>
-        </div>
-        <div class="grid2">
-          <div class="field"><label>Password</label><input type="password" placeholder="••••••••"></div>
-          <div class="field"><label>Confirm password</label><input type="password" placeholder="••••••••"></div>
-        </div>
-        <a class="btn btn-primary signup-btn">Create Interviewer Account</a>
-      </form>
-
-      <div class="terms">By continuing, you agree to Krinexa's Terms of Service and Privacy Policy.</div>
-      <div class="altrow">Hiring, not interviewing? <a>Post a Requirement instead</a></div>
     </div>
-  </div>
-</div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="w-full pt-28 pb-20">
+    <div class="max-w-container-max mx-auto px-margin-mobile lg:px-gutter">
+      
+      <!-- Page Title -->
+      <div class="text-center max-w-[700px] mx-auto mb-10">
+        <span class="font-label-mono text-label-mono text-secondary uppercase tracking-widest bg-secondary-fixed/50 px-4 py-1.5 rounded-full">Krinexa Registration Portal</span>
+        <h1 class="font-display-xl text-[36px] lg:text-[48px] text-on-surface mt-3 mb-3">Join Krinexa Network</h1>
+        <p class="font-body-lg text-on-surface-variant">Upload your resume to auto-fill your details, or select your registration category below.</p>
+      </div>
+
+      <!-- Registration Form Card -->
+      <div class="bg-surface/90 backdrop-blur-xl shadow-2xl rounded-3xl p-6 lg:p-12 border border-white/40 interactive-card max-w-[900px] mx-auto">
+        
+        <!-- STEP 1: RESUME AUTO-FILL DROP ZONE -->
+        <div class="mb-10 p-6 rounded-2xl bg-surface-container-low/80 border-2 border-dashed border-secondary/40 hover:border-secondary transition-all text-center relative group" id="dropZone">
+          <input type="file" id="resumeFileInput" accept=".pdf,.doc,.docx" class="hidden" onchange="handleResumeUpload(event)">
+          
+          <div class="flex flex-col items-center justify-center gap-3 cursor-pointer" onclick="document.getElementById('resumeFileInput').click()">
+            <div class="w-16 h-16 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary shadow-md group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-[32px]">upload_file</span>
+            </div>
+            <div>
+              <h4 class="font-headline-md text-[18px] text-on-surface">Upload Resume for Instant Auto-Fill</h4>
+              <p class="font-body-sm text-on-surface-variant mt-1">Drag & drop your PDF/DOCX resume here, or <span class="text-secondary font-semibold underline">browse file</span></p>
+            </div>
+            <span class="font-label-mono text-[11px] text-on-surface-variant bg-surface px-3 py-1 rounded-full border border-outline-variant/30">Parses Name, Email, Skills & Links automatically</span>
+          </div>
+
+          <!-- Upload Parsing Progress Overlay -->
+          <div id="parsingOverlay" class="hidden absolute inset-0 bg-surface/95 backdrop-blur-md rounded-2xl flex flex-col items-center justify-center gap-3 p-6 z-20">
+            <div class="spinner-border text-secondary" role="status">
+              <span class="visually-hidden">Parsing...</span>
+            </div>
+            <h5 class="font-headline-md text-on-surface" id="parsingStatusText">Parsing Resume & Extracting Details...</h5>
+            <div class="w-2/3 bg-surface-container h-2 rounded-full overflow-hidden">
+              <div class="bg-secondary h-full transition-all duration-300" id="parsingProgressBar" style="width: 15%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="my-8 border-outline-variant/30"/>
+
+        <!-- STEP 2: CATEGORY / ROLE SELECTOR -->
+        <div class="mb-8">
+          <label class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider block mb-3">SELECT REGISTRATION CATEGORY *</label>
+          
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-3" id="roleSelectorGroup">
+            <button type="button" class="role-btn active px-4 py-3 rounded-xl border border-outline-variant/40 font-body-sm text-center font-semibold transition-all" onclick="selectRole('student')">
+              🎓 Student
+            </button>
+            <button type="button" class="role-btn px-4 py-3 rounded-xl border border-outline-variant/40 font-body-sm text-center font-semibold transition-all" onclick="selectRole('intern')">
+              💼 Intern
+            </button>
+            <button type="button" class="role-btn px-4 py-3 rounded-xl border border-outline-variant/40 font-body-sm text-center font-semibold transition-all" onclick="selectRole('junior')">
+              ⚡ Junior Dev
+            </button>
+            <button type="button" class="role-btn px-4 py-3 rounded-xl border border-outline-variant/40 font-body-sm text-center font-semibold transition-all" onclick="selectRole('senior')">
+              🚀 Senior Dev
+            </button>
+            <button type="button" class="role-btn px-4 py-3 rounded-xl border border-outline-variant/40 font-body-sm text-center font-semibold transition-all" onclick="selectRole('interviewer')">
+              🏢 Interviewer / Client
+            </button>
+          </div>
+        </div>
+
+        <!-- REGISTRATION FORM -->
+        <form id="signupForm" onsubmit="handleRegistrationSubmit(event)">
+
+          <!-- CANDIDATE SPECIFIC FIELDS -->
+          <div id="candidateFields">
+            
+            <!-- Basic Details -->
+            <div class="font-label-mono text-secondary text-xs uppercase tracking-widest mb-3 font-semibold">PERSONAL & CONTACT DETAILS</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="form-label font-body-sm text-on-surface-variant">Full Name *</label>
+                <input type="text" id="fullName" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="e.g. Priya Verma" required>
+              </div>
+              <div>
+                <label class="form-label font-body-sm text-on-surface-variant">Mobile Number *</label>
+                <input type="tel" id="mobileNumber" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="+91 98765 43210" required>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label class="form-label font-body-sm text-on-surface-variant">Email Address (OTP Verification) *</label>
+              <div class="input-group">
+                <input type="email" id="email" class="form-control rounded-l-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="you@example.com" required>
+                <button type="button" class="btn btn-outline-secondary font-body-sm px-4" onclick="sendOTP()">Send OTP</button>
+              </div>
+            </div>
+
+            <!-- MANDATORY CANDIDATE SOCIAL LINKS -->
+            <div class="font-label-mono text-secondary text-xs uppercase tracking-widest mb-3 font-semibold">PORTFOLIO & SOCIAL PROFILES (IMPORTANT)</div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+              <div>
+                <label class="form-label font-body-sm text-on-surface-variant">Portfolio Link *</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-surface-container"><span class="material-symbols-outlined text-[18px]">language</span></span>
+                  <input type="url" id="portfolioUrl" class="form-control rounded-r-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="https://yourportfolio.com" required>
+                </div>
+              </div>
+              <div>
+                <label class="form-label font-body-sm text-on-surface-variant">GitHub Profile Link *</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-surface-container"><span class="material-symbols-outlined text-[18px]">code</span></span>
+                  <input type="url" id="githubUrl" class="form-control rounded-r-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="https://github.com/username" required>
+                </div>
+              </div>
+              <div>
+                <label class="form-label font-body-sm text-on-surface-variant">LinkedIn Link *</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-surface-container"><span class="material-symbols-outlined text-[18px]">link</span></span>
+                  <input type="url" id="linkedinUrl" class="form-control rounded-r-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="https://linkedin.com/in/username" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- ACADEMIC DETAILS (STUDENT / INTERN) -->
+            <div id="academicSection">
+              <div class="font-label-mono text-secondary text-xs uppercase tracking-widest mb-3 font-semibold">ACADEMIC DETAILS (STUDENT / INTERN)</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label class="form-label font-body-sm text-on-surface-variant">College / University *</label>
+                  <input type="text" id="collegeName" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="e.g. ABES Engineering College">
+                </div>
+                <div>
+                  <label class="form-label font-body-sm text-on-surface-variant">Course / Degree *</label>
+                  <input type="text" id="degree" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="B.Tech, BCA, MCA...">
+                </div>
+                <div>
+                  <label class="form-label font-body-sm text-on-surface-variant">Branch / Specialization *</label>
+                  <input type="text" id="branch" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="Computer Science, IT...">
+                </div>
+                <div>
+                  <label class="form-label font-body-sm text-on-surface-variant">Current Year / Semester *</label>
+                  <input type="text" id="passingYear" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="3rd Year, 6th Sem">
+                </div>
+              </div>
+            </div>
+
+            <!-- TECH STACK & SKILLS -->
+            <div class="font-label-mono text-secondary text-xs uppercase tracking-widest mb-3 font-semibold">TECHNICAL SKILLS & EXPERIENCE TIER</div>
+            <div class="mb-4">
+              <label class="form-label font-body-sm text-on-surface-variant">Primary Technical Skills *</label>
+              <input type="text" id="techSkills" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="e.g. ASP.NET Core, C#, React.js, SQL Server, Azure, Docker" required>
+            </div>
+
+          </div>
+
+          <!-- INTERVIEWER / CLIENT SPECIFIC FIELDS -->
+          <div id="interviewerFields" class="hidden">
+            <div class="font-label-mono text-secondary text-xs uppercase tracking-widest mb-3 font-semibold">INTERVIEWER & COMPANY DETAILS</div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="form-label font-body-sm text-on-surface-variant">Full Name *</label>
+                <input type="text" id="interviewerName" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="e.g. Sarah Chen">
+              </div>
+              <div>
+                <label class="form-label font-body-sm text-on-surface-variant">Designation / Role *</label>
+                <input type="text" id="interviewerDesignation" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="e.g. CTO / VP Engineering">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="form-label font-body-sm text-on-surface-variant">Company Name *</label>
+                <input type="text" id="companyName" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="e.g. TechFlow Systems">
+              </div>
+              <div>
+                <label class="form-label font-body-sm text-on-surface-variant">Company Size *</label>
+                <select id="companySize" class="form-select rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40">
+                  <option value="">Select Employee Size...</option>
+                  <option value="1-10">1-10 Employees (Startup)</option>
+                  <option value="11-50">11-50 Employees</option>
+                  <option value="51-200">51-200 Employees</option>
+                  <option value="201-500">201-500 Employees</option>
+                  <option value="500+">500+ Employees (Enterprise)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              <div>
+                <label class="form-label font-body-sm text-on-surface-variant">Company Website URL *</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-surface-container"><span class="material-symbols-outlined text-[18px]">public</span></span>
+                  <input type="url" id="companyUrl" class="form-control rounded-r-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="https://techflow.com">
+                </div>
+              </div>
+              <div>
+                <label class="form-label font-body-sm text-on-surface-variant">Business Phone Number *</label>
+                <input type="tel" id="businessPhone" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="+91 98765 43210">
+              </div>
+            </div>
+          </div>
+
+          <!-- Password & Submit -->
+          <div class="font-label-mono text-secondary text-xs uppercase tracking-widest mb-3 font-semibold">SECURITY PASSWORD</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            <div>
+              <label class="form-label font-body-sm text-on-surface-variant">Password *</label>
+              <input type="password" id="password" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="••••••••" required>
+            </div>
+            <div>
+              <label class="form-label font-body-sm text-on-surface-variant">Confirm Password *</label>
+              <input type="password" id="confirmPassword" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="••••••••" required>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-outline-variant/30">
+            <span class="text-body-sm text-on-surface-variant">Already registered? <a href="05-login.html" class="text-secondary font-semibold hover:underline">Sign In here</a></span>
+            <button type="submit" class="w-full sm:w-auto px-10 py-4 bg-secondary text-on-secondary font-headline-md text-[16px] rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              Complete Registration →
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full bg-surface-container-low/80 backdrop-blur-md py-section-gap border-t border-outline-variant/30">
+    <div class="max-w-container-max mx-auto px-margin-mobile lg:px-gutter grid grid-cols-1 md:grid-cols-4 gap-section-gap">
+      <div>
+        <div class="flex items-center gap-base mb-6">
+          <div class="w-7 h-7 rounded-lg bg-secondary text-on-secondary flex items-center justify-center font-bold text-sm">K</div>
+          <span class="font-headline-md text-headline-md">Krinexa</span>
+        </div>
+        <p class="text-body-sm text-on-surface-variant">Building the future of technical talent acquisition.</p>
+        <p class="text-body-sm text-on-surface-variant mt-2 font-label-mono">Sector 49, Noida, Uttar Pradesh – 201301</p>
+      </div>
+
+      <div>
+        <h4 class="font-headline-md text-body-lg mb-6">Company</h4>
+        <nav class="flex flex-col gap-base">
+          <a class="text-body-sm text-on-surface-variant hover:text-secondary" href="index.html">About Us</a>
+          <a class="text-body-sm text-on-surface-variant hover:text-secondary" href="02-registration.html">Careers</a>
+          <a class="text-body-sm text-on-surface-variant hover:text-secondary" href="06-admin-index.html">Admin Portal</a>
+        </nav>
+      </div>
+
+      <div>
+        <h4 class="font-headline-md text-body-lg mb-6">Social</h4>
+        <nav class="flex flex-col gap-base">
+          <a class="text-body-sm text-on-surface-variant hover:text-secondary" href="#">LinkedIn</a>
+          <a class="text-body-sm text-on-surface-variant hover:text-secondary" href="#">Twitter</a>
+          <a class="text-body-sm text-on-surface-variant hover:text-secondary" href="#">GitHub</a>
+        </nav>
+      </div>
+
+      <div>
+        <h4 class="font-headline-md text-body-lg mb-6">Contact</h4>
+        <nav class="flex flex-col gap-base">
+          <a class="text-body-sm text-on-surface-variant hover:text-secondary" href="mailto:support@krinexa.in">support@krinexa.in</a>
+          <a class="text-body-sm text-on-surface-variant hover:text-secondary" href="03-chat.html">Contact Sales</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    let currentRole = 'student';
+
+    function selectRole(role) {
+      currentRole = role;
+      document.querySelectorAll('#roleSelectorGroup button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const candidateFields = document.getElementById('candidateFields');
+      const academicSection = document.getElementById('academicSection');
+      const interviewerFields = document.getElementById('interviewerFields');
+
+      if (role === 'interviewer') {
+        candidateFields.classList.add('hidden');
+        interviewerFields.classList.remove('hidden');
+      } else {
+        candidateFields.classList.remove('hidden');
+        interviewerFields.classList.add('hidden');
+        
+        if (role === 'student' || role === 'intern') {
+          academicSection.classList.remove('hidden');
+        } else {
+          academicSection.classList.add('hidden');
+        }
+      }
+    }
+
+    function handleResumeUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const overlay = document.getElementById('parsingOverlay');
+      const progressBar = document.getElementById('parsingProgressBar');
+      const statusText = document.getElementById('parsingStatusText');
+      overlay.classList.remove('hidden');
+
+      let progress = 15;
+      const interval = setInterval(() => {
+        progress += 25;
+        progressBar.style.width = `${progress}%`;
+
+        if (progress === 40) statusText.innerText = 'Extracting Name, Email & Phone...';
+        if (progress === 65) statusText.innerText = 'Detecting Portfolio, GitHub & LinkedIn Links...';
+        if (progress === 90) statusText.innerText = 'Parsing Tech Stack & Skills...';
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            overlay.classList.add('hidden');
+            autoFillParsedDetails(file.name);
+          }, 400);
+        }
+      }, 300);
+    }
+
+    function autoFillParsedDetails(fileName) {
+      alert(`Resume "${fileName}" uploaded and parsed successfully! Form fields have been auto-filled.`);
+      
+      document.getElementById('fullName').value = 'Priya Verma';
+      document.getElementById('mobileNumber').value = '+91 98765 43210';
+      document.getElementById('email').value = 'priya.verma@example.com';
+      document.getElementById('portfolioUrl').value = 'https://priyaverma.dev';
+      document.getElementById('githubUrl').value = 'https://github.com/priyaverma';
+      document.getElementById('linkedinUrl').value = 'https://linkedin.com/in/priyaverma';
+      document.getElementById('techSkills').value = 'ASP.NET Core, C#, React.js, SQL Server, Azure, REST APIs';
+      
+      if (currentRole === 'student' || currentRole === 'intern') {
+        document.getElementById('collegeName').value = 'ABES Engineering College';
+        document.getElementById('degree').value = 'B.Tech';
+        document.getElementById('branch').value = 'Computer Science & Engineering';
+        document.getElementById('passingYear').value = 'Final Year (2026 Batch)';
+      }
+    }
+
+    function sendOTP() {
+      const email = document.getElementById('email').value;
+      if (!email) {
+        alert('Please enter your email address first.');
+        return;
+      }
+      alert(`OTP code sent to ${email}. Check your inbox!`);
+    }
+
+    function handleRegistrationSubmit(e) {
+      e.preventDefault();
+      
+      const pwd = document.getElementById('password').value;
+      const confirmPwd = document.getElementById('confirmPassword').value;
+
+      if (pwd !== confirmPwd) {
+        alert('Passwords do not match. Please verify your password.');
+        return;
+      }
+
+      let profileData = { role: currentRole };
+
+      if (currentRole === 'interviewer') {
+        profileData.name = document.getElementById('interviewerName').value;
+        profileData.company = document.getElementById('companyName').value;
+        profileData.companySize = document.getElementById('companySize').value;
+        profileData.companyUrl = document.getElementById('companyUrl').value;
+        profileData.designation = document.getElementById('interviewerDesignation').value;
+      } else {
+        profileData.name = document.getElementById('fullName').value;
+        profileData.email = document.getElementById('email').value;
+        profileData.portfolioUrl = document.getElementById('portfolioUrl').value;
+        profileData.githubUrl = document.getElementById('githubUrl').value;
+        profileData.linkedinUrl = document.getElementById('linkedinUrl').value;
+        profileData.skills = document.getElementById('techSkills').value;
+      }
+
+      // Save to localStorage simulated database
+      let users = JSON.parse(localStorage.getItem('krinexa_users') || '[]');
+      users.push(profileData);
+      localStorage.setItem('krinexa_users', JSON.stringify(users));
+
+      alert('Registration successful! Profile data saved. Redirecting to Sign In...');
+      window.location.href = '05-login.html';
+    }
+  </script>
+
+  <!-- Rainbow Mouse Cursor Script -->
+  <script>
+    (function initRainbowCursor() {
+      const canvas = document.getElementById('rainbow-cursor-canvas');
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      let hue = 0;
+      let mouseX = width / 2;
+      let mouseY = height / 2;
+      let lastMouseX = mouseX;
+      let lastMouseY = mouseY;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        const distance = Math.hypot(mouseX - lastMouseX, mouseY - lastMouseY);
+        const count = Math.min(Math.floor(distance / 4), 6);
+
+        for (let i = 0; i < count; i++) {
+          hue = (hue + 2) % 360;
+          particles.push({
+            x: mouseX + (Math.random() - 0.5) * 8,
+            y: mouseY + (Math.random() - 0.5) * 8,
+            vx: (Math.random() - 0.5) * 2,
+            vy: (Math.random() - 0.5) * 2 - 1,
+            size: Math.random() * 8 + 4,
+            color: `hsl(${hue}, 100%, 65%)`,
+            alpha: 1
+          });
+        }
+        lastMouseX = mouseX;
+        lastMouseY = mouseY;
+      });
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.size *= 0.95;
+          p.alpha -= 0.025;
+
+          if (p.alpha <= 0 || p.size <= 0.5) {
+            particles.splice(i, 1);
+            continue;
+          }
+
+          ctx.save();
+          ctx.globalAlpha = p.alpha;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.shadowColor = p.color;
+          ctx.shadowBlur = 12;
+          ctx.fill();
+          ctx.restore();
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+  </script>
 
 </body>
 </html>
