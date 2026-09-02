@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Krinexa — Home</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .wrap{ max-width:1280px; margin:0 auto; padding:0 40px; }
+  /* hero */
+  .hero{ padding:76px 0 64px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center; }
+  .hero h1{ font-size:52px; line-height:1.06; }
+  .hero p.lead{ margin:22px 0 0; max-width:460px; color:var(--ink-soft); font-size:16.5px; }
+  .hero-ctas{ display:flex; gap:14px; margin-top:32px; }
+  .hero-panel{ padding:26px; background:var(--navy); color:#fff; position:relative; }
+  .hero-panel::before,.hero-panel::after{ content:""; position:absolute; width:9px; height:9px; border-top:2px solid var(--brass); border-left:2px solid var(--brass); top:-1px; left:-1px; }
+  .hero-panel::after{ left:auto; top:auto; right:-1px; bottom:-1px; border-top:none; border-left:none; border-bottom:2px solid var(--brass); border-right:2px solid var(--brass); }
+  .hero-panel h4{ font-size:12px; text-transform:none; color:#C9D2E4; font-family:'TeX Gyre Cursor',monospace; font-weight:normal; letter-spacing:0.03em; }
+  .readout{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px; }
+  .readout .num{ font-family:'TeX Gyre Adventor'; font-size:34px; }
+  .readout .lbl{ font-size:11.5px; color:#AEB9CD; margin-top:2px; }
+  .flow{ margin-top:26px; padding-top:20px; border-top:1px solid #33436A; font-family:'TeX Gyre Cursor',monospace; font-size:12px; color:#C9D2E4; }
+  .flow b{ color:#fff; }
+
+  /* how it works */
+  .section{ padding:56px 0; border-top:1px solid var(--line); }
+  .section h2{ font-size:26px; }
+  .steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:34px; }
+  .step{ padding:0 22px 0 0; position:relative; }
+  .step:not(:first-child){ padding-left:22px; border-left:1px solid var(--line); }
+  .step .n{ font-family:'TeX Gyre Cursor'; color:var(--brass); font-size:12px; }
+  .step h3{ font-size:17px; margin-top:10px; }
+  .step p{ color:var(--ink-soft); font-size:13.5px; margin-top:8px; }
+
+  /* talent tiers */
+  .tiers{ display:flex; gap:10px; margin-top:28px; flex-wrap:wrap; }
+  .tier{ padding:10px 18px; border:1px solid var(--line-2); font-size:13.5px; color:var(--ink-soft); }
+  .tier.active{ border-color:var(--navy); color:var(--navy); background:var(--panel); font-weight:bold; }
+
+  .techgrid{ display:flex; flex-wrap:wrap; gap:9px; margin-top:22px; }
+
+  /* featured talent */
+  .cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:30px; }
+  .card{ padding:22px; }
+  .avatar{ width:44px; height:44px; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'TeX Gyre Adventor'; font-size:15px; }
+  .card-top{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .card h3{ font-size:16px; margin-top:14px; }
+  .card .role{ color:var(--muted); font-size:13px; margin-top:2px; }
+  .card .skills{ display:flex; gap:6px; flex-wrap:wrap; margin-top:14px; }
+  .score{ font-family:'TeX Gyre Cursor'; font-size:11px; color:var(--green); border:1px solid var(--green); padding:4px 8px; }
+
+  /* feedback */
+  .quote{ padding:34px 40px; max-width:760px; }
+  .quote p{ font-size:19px; font-family:'TeX Gyre Adventor'; line-height:1.4; }
+  .quote .who{ margin-top:16px; color:var(--muted); font-size:13px; font-family:'TeX Gyre Cursor',monospace; }
+
+  /* footer cta */
+  .cta-band{ background:var(--navy); color:#fff; padding:54px 0; }
+  .cta-band .wrap{ display:flex; align-items:center; justify-content:space-between; }
+  .cta-band h2{ font-size:28px; max-width:480px; }
+  .cta-band .office{ font-family:'TeX Gyre Cursor',monospace; font-size:12px; color:#AEB9CD; margin-top:10px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">KRINEXA<span class="dot">.</span></div>
+  <div class="navlinks">
+    <a>About</a><a>Talent Network</a><a>For Clients</a><a>Technology</a><a>Pricing</a>
+  </div>
+  <div style="display:flex;gap:10px;">
+    <a class="btn btn-ghost" style="padding:9px 16px;">Sign in</a>
+    <a class="btn btn-primary" style="padding:9px 16px;">Post a Requirement</a>
+  </div>
+</div>
+
+<div class="wrap hero">
+  <div>
+    <div class="eyebrow-rule" style="margin-bottom:18px;"><span>krinexa.in — technology talent, matched</span><span class="line"></span></div>
+    <h1>Find the right<br>developer.<br>Build faster.</h1>
+    <p class="lead">Describe your project and the experience level you need. Krinexa matches you with vetted developers, interns and students across .NET, MERN, SQL and Azure — without the cost of a full hiring process.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary">Tell Us Your Requirement</a>
+      <a class="btn btn-ghost">Join Our Talent Network</a>
+    </div>
+  </div>
+  <div class="hero-panel tick">
+    <h4>REQUIREMENT → MATCH · LIVE READOUT</h4>
+    <div class="readout">
+      <div><div class="num">40%</div><div class="lbl">technology match weight</div></div>
+      <div><div class="num">20%</div><div class="lbl">experience-level weight</div></div>
+      <div><div class="num">240+</div><div class="lbl">talent profiles</div></div>
+      <div><div class="num">15d</div><div class="lbl">free trial period</div></div>
+    </div>
+    <div class="flow">Requirement <b>submitted</b> → matching engine <b>scored</b> → admin <b>reviewed</b> → shortlist <b>sent</b></div>
+  </div>
+</div>
+
+<div class="section wrap">
+  <h2>How Krinexa works</h2>
+  <div class="steps">
+    <div class="step"><div class="n">01</div><h3>Requirement</h3><p>Tell us the technology, experience level, budget and duration.</p></div>
+    <div class="step"><div class="n">02</div><h3>Match</h3><p>Our scoring engine ranks candidates by fit, not just seniority.</p></div>
+    <div class="step"><div class="n">03</div><h3>Interview</h3><p>Meet shortlisted candidates — Krinexa aligns the schedule.</p></div>
+    <div class="step"><div class="n">04</div><h3>Delivery</h3><p>Start the engagement with the right person, right away.</p></div>
+  </div>
+</div>
+
+<div class="section wrap">
+  <h2>Choose your requirement</h2>
+  <div class="tiers">
+    <div class="tier active">Senior</div>
+    <div class="tier">Junior</div>
+    <div class="tier">Intern</div>
+    <div class="tier">Student</div>
+    <div class="tier">Project Team</div>
+  </div>
+  <div class="techgrid">
+    <span class="chip">.NET</span><span class="chip">ASP.NET Core</span><span class="chip">MERN</span>
+    <span class="chip">React</span><span class="chip">Angular</span><span class="chip">SQL Server</span>
+    <span class="chip">PostgreSQL</span><span class="chip">Azure</span><span class="chip">DevOps</span>
+    <span class="chip">Docker</span><span class="chip">MongoDB</span><span class="chip">Node.js</span>
+  </div>
+</div>
+
+<div class="section wrap">
+  <h2>Featured talent</h2>
+  <div class="cards">
+    <div class="card tick">
+      <div class="card-top"><div class="avatar">AK</div><span class="score">MATCH 92%</span></div>
+      <h3>Senior .NET Engineer</h3>
+      <div class="role">6 yrs · Backend &amp; Cloud</div>
+      <div class="skills"><span class="chip">ASP.NET Core</span><span class="chip">Azure</span><span class="chip">EF Core</span></div>
+    </div>
+    <div class="card tick">
+      <div class="card-top"><div class="avatar">RS</div><span class="score">MATCH 88%</span></div>
+      <h3>Junior Full-Stack Developer</h3>
+      <div class="role">2 yrs · MERN</div>
+      <div class="skills"><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">MongoDB</span></div>
+    </div>
+    <div class="card tick">
+      <div class="card-top"><div class="avatar">PV</div><span class="score">MATCH 81%</span></div>
+      <h3>B.Tech CSE — Final Year</h3>
+      <div class="role">Student · Available part-time</div>
+      <div class="skills"><span class="chip">React</span><span class="chip">SQL</span><span class="chip">C#</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section wrap">
+  <h2>What clients say</h2>
+  <div class="quote tick">
+    <p>“We needed a junior ASP.NET Core developer for a two-month internal tool. Krinexa matched us with someone suitable in days, not weeks.”</p>
+    <div class="who">— Approved client testimonial, [Company Name]</div>
+  </div>
+</div>
+
+<div class="cta-band">
+  <div class="wrap">
+    <div>
+      <h2>One requirement.<br>One team. The right talent.</h2>
+      <div class="office">SECTOR 49, NOIDA, UTTAR PRADESH – 201301</div>
+    </div>
+    <a class="btn btn-brass">Tell Us Your Requirement</a>
+  </div>
+</div>
+
+</body>
+</html>
