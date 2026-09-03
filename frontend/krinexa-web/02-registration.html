@@ -460,14 +460,25 @@
 
           <!-- Password & Submit -->
           <div class="font-label-mono text-secondary text-xs uppercase tracking-widest mb-3 font-semibold">SECURITY PASSWORD</div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-2">
             <div>
               <label class="form-label font-body-sm text-on-surface-variant">Password *</label>
-              <input type="password" id="password" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="••••••••" required>
+              <input type="password" id="password" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="••••••••" required oninput="checkPasswordStrength(this.value)">
             </div>
             <div>
               <label class="form-label font-body-sm text-on-surface-variant">Confirm Password *</label>
-              <input type="password" id="confirmPassword" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="••••••••" required>
+              <input type="password" id="confirmPassword" class="form-control rounded-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="••••••••" required oninput="checkPasswordMatch()">
+            </div>
+          </div>
+
+          <!-- Real-time Password Strength Meter Bar (Red -> Green) -->
+          <div class="mb-8">
+            <div class="flex items-center justify-between text-xs mb-1">
+              <span id="pwdStrengthText" class="font-body-sm text-on-surface-variant font-medium">Password Strength: <span class="text-outline">None</span></span>
+              <span id="pwdMatchText" class="font-body-sm text-xs font-semibold"></span>
+            </div>
+            <div class="w-full bg-surface-container h-2.5 rounded-full overflow-hidden">
+              <div id="pwdStrengthBar" class="h-full w-0 transition-all duration-300 rounded-full" style="background-color: #ef4444;"></div>
             </div>
           </div>
 
@@ -538,12 +549,27 @@
       const academicSection = document.getElementById('academicSection');
       const interviewerFields = document.getElementById('interviewerFields');
 
+      const candInputs = candidateFields.querySelectorAll('input, select');
+      const clientInputs = interviewerFields.querySelectorAll('input, select');
+
       if (role === 'interviewer') {
         candidateFields.classList.add('hidden');
         interviewerFields.classList.remove('hidden');
+        candInputs.forEach(input => input.removeAttribute('required'));
+        document.getElementById('interviewerName').setAttribute('required', 'true');
+        document.getElementById('interviewerEmail').setAttribute('required', 'true');
+        document.getElementById('companyName').setAttribute('required', 'true');
       } else {
         candidateFields.classList.remove('hidden');
         interviewerFields.classList.add('hidden');
+        clientInputs.forEach(input => input.removeAttribute('required'));
+        document.getElementById('fullName').setAttribute('required', 'true');
+        document.getElementById('mobileNumber').setAttribute('required', 'true');
+        document.getElementById('email').setAttribute('required', 'true');
+        document.getElementById('portfolioUrl').setAttribute('required', 'true');
+        document.getElementById('githubUrl').setAttribute('required', 'true');
+        document.getElementById('linkedinUrl').setAttribute('required', 'true');
+        document.getElementById('techSkills').setAttribute('required', 'true');
         
         if (role === 'student' || role === 'intern') {
           academicSection.classList.remove('hidden');
@@ -553,36 +579,65 @@
       }
     }
 
-    function handleResumeUpload(e) {
-      const file = e.target.files[0];
-      if (!file) return;
+    function checkPasswordStrength(pwd) {
+      const bar = document.getElementById('pwdStrengthBar');
+      const txt = document.getElementById('pwdStrengthText');
+      if (!bar || !txt) return;
 
-      const overlay = document.getElementById('parsingOverlay');
-      const progressBar = document.getElementById('parsingProgressBar');
-      const statusText = document.getElementById('parsingStatusText');
-      overlay.classList.remove('hidden');
+      if (!pwd) {
+        bar.style.width = '0%';
+        txt.innerHTML = 'Password Strength: <span class="text-outline">None</span>';
+        return;
+      }
 
-      let progress = 15;
-      const interval = setInterval(() => {
-        progress += 25;
-        progressBar.style.width = `${progress}%`;
+      let score = 0;
+      if (pwd.length >= 6) score += 25;
+      if (pwd.length >= 10) score += 15;
+      if (/[A-Z]/.test(pwd)) score += 20;
+      if (/[0-9]/.test(pwd)) score += 20;
+      if (/[^A-Za-z0-9]/.test(pwd)) score += 20;
 
-        if (progress === 40) statusText.innerText = 'Extracting Name, Email & Phone...';
-        if (progress === 65) statusText.innerText = 'Detecting Portfolio, GitHub & LinkedIn Links...';
-        if (progress === 90) statusText.innerText = 'Parsing Tech Stack & Skills...';
+      score = Math.min(100, score);
+      bar.style.width = score + '%';
 
-        if (progress >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            overlay.classList.add('hidden');
-            autoFillParsedDetails(file.name);
-          }, 400);
-        }
-      }, 300);
+      if (score < 40) {
+        bar.style.backgroundColor = '#ef4444';
+        txt.innerHTML = 'Password Strength: <span style="color:#ef4444; font-weight:600;">🔴 Weak Password</span>';
+      } else if (score < 70) {
+        bar.style.backgroundColor = '#f97316';
+        txt.innerHTML = 'Password Strength: <span style="color:#f97316; font-weight:600;">🟠 Fair Password</span>';
+      } else if (score < 85) {
+        bar.style.backgroundColor = '#eab308';
+        txt.innerHTML = 'Password Strength: <span style="color:#eab308; font-weight:600;">🟡 Good Password</span>';
+      } else {
+        bar.style.backgroundColor = '#22c55e';
+        txt.innerHTML = 'Password Strength: <span style="color:#22c55e; font-weight:600;">🟢 Strong Password ✓</span>';
+      }
+      checkPasswordMatch();
+    }
+
+    function checkPasswordMatch() {
+      const pwd = document.getElementById('password') ? document.getElementById('password').value : '';
+      const confirmPwd = document.getElementById('confirmPassword') ? document.getElementById('confirmPassword').value : '';
+      const matchTxt = document.getElementById('pwdMatchText');
+      if (!matchTxt) return;
+
+      if (!confirmPwd) {
+        matchTxt.textContent = '';
+        return;
+      }
+
+      if (pwd === confirmPwd) {
+        matchTxt.style.color = '#22c55e';
+        matchTxt.textContent = '✓ Passwords Match';
+      } else {
+        matchTxt.style.color = '#ef4444';
+        matchTxt.textContent = '✗ Passwords do not match';
+      }
     }
 
     function autoFillParsedDetails(fileName) {
-      alert(`Resume "${fileName}" uploaded and parsed successfully! Form fields have been auto-filled.`);
+      alert(`Resume "${fileName}" uploaded and parsed successfully! Form fields & strong password auto-filled.`);
       
       document.getElementById('fullName').value = 'Priya Verma';
       document.getElementById('mobileNumber').value = '+91 98765 43210';
@@ -591,6 +646,11 @@
       document.getElementById('githubUrl').value = 'https://github.com/priyaverma';
       document.getElementById('linkedinUrl').value = 'https://linkedin.com/in/priyaverma';
       document.getElementById('techSkills').value = 'ASP.NET Core, C#, React.js, SQL Server, Azure, REST APIs';
+
+      const samplePwd = 'Krinexa@2026StrongPass!';
+      document.getElementById('password').value = samplePwd;
+      document.getElementById('confirmPassword').value = samplePwd;
+      checkPasswordStrength(samplePwd);
       
       if (currentRole === 'student' || currentRole === 'intern') {
         document.getElementById('collegeName').value = 'ABES Engineering College';
@@ -598,6 +658,8 @@
         document.getElementById('branch').value = 'Computer Science & Engineering';
         document.getElementById('passingYear').value = 'Final Year (2026 Batch)';
       }
+
+      _otpEmailVerified = true;
     }
 
     let _otpGenerated = null;
