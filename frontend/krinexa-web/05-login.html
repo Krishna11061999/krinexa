@@ -372,23 +372,33 @@
     async function handleLoginSubmit(e) {
       e.preventDefault();
 
-      const email = document.getElementById('loginEmail').value;
+      const email = document.getElementById('loginEmail').value.trim();
       const pwd = document.getElementById('password') ? document.getElementById('password').value : '';
 
-      // Check Supabase Users table
-      if (typeof loginUserFromSupabase === 'function') {
-        const result = await loginUserFromSupabase(email, pwd);
-        if (result && result.success === false) {
-          alert(result.message || 'Login failed.');
-          return;
-        }
+      if (!email) {
+        alert('Please enter your email address.');
+        return;
       }
-      
-      alert(`[Krinexa Supabase Auth]\n\nWelcome back! Logged in successfully as ${activeLoginRole.toUpperCase()} (${email}).\nStatus: ACTIVE (Y) ✓\n\nRedirecting to portal...`);
 
-      if (activeLoginRole === 'admin') {
+      // Validate from Supabase Users table ONLY
+      let result = null;
+      if (typeof loginUserFromSupabase === 'function') {
+        result = await loginUserFromSupabase(email, pwd);
+      }
+
+      if (!result || result.success === false) {
+        alert('❌ Login Failed\n\n' + (result ? result.message : 'Cannot connect to Krinexa database.'));
+        return;
+      }
+
+      const user = result.user;
+      localStorage.setItem('krinexa_current_user', JSON.stringify(user));
+
+      alert(`✅ Welcome back!\n\nLogged in as: ${user.Email}\nRole: ${user.UserType}\nStatus: ACTIVE ✓\n\nRedirecting to your portal...`);
+
+      if (activeLoginRole === 'admin' || user.UserType === 'Admin') {
         window.location.href = '06-admin-index.html';
-      } else if (activeLoginRole === 'interviewer') {
+      } else if (activeLoginRole === 'interviewer' || user.UserType === 'Client') {
         window.location.href = '08-interviewer.html';
       } else {
         window.location.href = '04-dashboard.html';
