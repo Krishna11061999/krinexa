@@ -1113,7 +1113,9 @@
       }
 
       const isInterviewer = modalRole === 'interviewer';
-      let email = isInterviewer ? document.getElementById('modalClientEmail').value : document.getElementById('modalEmail').value;
+      const candEmail = document.getElementById('modalEmail') ? document.getElementById('modalEmail').value.trim() : '';
+      const clientEmail = document.getElementById('modalClientEmail') ? document.getElementById('modalClientEmail').value.trim() : '';
+      let email = isInterviewer ? (clientEmail || candEmail) : (candEmail || clientEmail);
 
       if (!email || !email.includes('@')) {
         alert('Please enter a valid email address.');
@@ -1147,15 +1149,14 @@
       }
 
       // Save directly to Supabase PostgreSQL Users & Profiles tables
+      let supaRes = null;
       if (typeof saveUserToSupabase === 'function') {
-        await saveUserToSupabase(profileData);
-      } else {
-        let users = JSON.parse(localStorage.getItem('krinexa_database_users') || '[]');
-        users.push(profileData);
-        localStorage.setItem('krinexa_database_users', JSON.stringify(users));
+        supaRes = await saveUserToSupabase(profileData);
       }
 
-      alert(`[Krinexa Account Created]\n\nRegistration Successful!\nUser ID: ${userId}\nRegistered Email: ${email}\nRole: ${modalRole.toUpperCase()}\nStatus: Saved to Supabase Database ✓ (Status: Y)\n\nPlease sign in with your credentials.`);
+      const confirmedId = (supaRes && supaRes.userId) ? supaRes.userId : userId;
+
+      alert(`[Krinexa Account Created]\n\nRegistration Successful!\nUser ID: ${confirmedId}\nRegistered Email: ${email}\nRole: ${modalRole.toUpperCase()}\nStatus: Saved to Supabase Database ✓ (Status: Y)\n\nPlease sign in with your credentials.`);
 
       const modalEl = document.getElementById('signUpModal');
       const modal = bootstrap.Modal.getInstance(modalEl);
