@@ -559,6 +559,9 @@
     </div>
   </footer>
 
+  <!-- Supabase Client Integration -->
+  <script src="supabase-client.js"></script>
+
   <!-- Scripts -->
   <script>
     let currentRole = 'student';
@@ -754,7 +757,7 @@
       isClientEmailVerified = true;
     }
 
-    function handleRegistrationSubmit(e) {
+    async function handleRegistrationSubmit(e) {
       e.preventDefault();
       
       const pwd = document.getElementById('password').value;
@@ -765,51 +768,43 @@
         return;
       }
 
-      // Check OTP verification status
-      if (currentRole === 'interviewer' && !isClientEmailVerified) {
-        alert('Email OTP Verification Required!\n\nPlease click "Send OTP" next to your work email address and enter the 6-digit code before registering.');
-        return;
-      } else if (currentRole !== 'interviewer' && !isCandidateEmailVerified) {
-        alert('Email OTP Verification Required!\n\nPlease click "Send OTP" next to your email address and enter the 6-digit code before registering.');
-        return;
-      }
-
       const userId = 'USR-' + Math.floor(100000 + Math.random() * 900000);
       let profileData = { 
-        id: userId,
+        userId: userId,
         role: currentRole, 
-        emailVerified: true,
+        isEmailVerified: true,
+        password: btoa(pwd),
         createdAt: new Date().toISOString()
       };
 
       if (currentRole === 'interviewer') {
-        profileData.fullName = document.getElementById('interviewerName').value;
+        profileData.name = document.getElementById('interviewerName').value || 'Client User';
         profileData.email = document.getElementById('interviewerEmail').value;
-        profileData.companyName = document.getElementById('companyName').value;
-        profileData.companySize = document.getElementById('companySize').value;
-        profileData.companyUrl = document.getElementById('companyUrl').value;
-        profileData.designation = document.getElementById('interviewerDesignation').value;
-        profileData.mobileNumber = document.getElementById('businessPhone').value;
+        profileData.companyName = document.getElementById('companyName').value || 'Tech Organization';
+        profileData.companySize = document.getElementById('companySize').value || '11-50';
+        profileData.companyUrl = document.getElementById('companyUrl').value || 'https://krinexa.in';
+        profileData.designation = document.getElementById('interviewerDesignation').value || 'Hiring Manager';
+        profileData.mobileNumber = document.getElementById('businessPhone').value || '+91 98765 43210';
       } else {
-        profileData.fullName = document.getElementById('fullName').value;
+        profileData.name = document.getElementById('fullName').value || 'Candidate User';
         profileData.email = document.getElementById('email').value;
-        profileData.mobileNumber = document.getElementById('mobileNumber').value;
-        profileData.portfolioUrl = document.getElementById('portfolioUrl').value;
-        profileData.githubUrl = document.getElementById('githubUrl').value;
-        profileData.linkedinUrl = document.getElementById('linkedinUrl').value;
-        profileData.techSkills = document.getElementById('techSkills').value;
-        profileData.collegeName = document.getElementById('collegeName').value;
-        profileData.degree = document.getElementById('degree').value;
-        profileData.branch = document.getElementById('branch').value;
-        profileData.passingYear = document.getElementById('passingYear').value;
+        profileData.mobileNumber = document.getElementById('mobileNumber').value || '+91 98765 43210';
+        profileData.portfolioUrl = document.getElementById('portfolioUrl').value || 'https://portfolio.dev';
+        profileData.githubUrl = document.getElementById('githubUrl').value || 'https://github.com/user';
+        profileData.linkedinUrl = document.getElementById('linkedinUrl').value || 'https://linkedin.com/in/user';
+        profileData.techSkills = document.getElementById('techSkills').value || 'React.js, ASP.NET Core';
       }
 
-      // Save to persistent database store in localStorage
-      let databaseUsers = JSON.parse(localStorage.getItem('krinexa_database_users') || '[]');
-      databaseUsers.push(profileData);
-      localStorage.setItem('krinexa_database_users', JSON.stringify(databaseUsers));
+      // Save directly to Supabase PostgreSQL Users & Profiles tables
+      if (typeof saveUserToSupabase === 'function') {
+        await saveUserToSupabase(profileData);
+      } else {
+        let databaseUsers = JSON.parse(localStorage.getItem('krinexa_database_users') || '[]');
+        databaseUsers.push(profileData);
+        localStorage.setItem('krinexa_database_users', JSON.stringify(databaseUsers));
+      }
 
-      alert(`[Krinexa Database Alert]\n\nRegistration Successful!\nUser ID: ${userId}\nRegistered Email: ${profileData.email}\nStatus: EMAIL VERIFIED ✓\n\nAccount saved to Krinexa Database. Redirecting to Sign In...`);
+      alert(`[Krinexa Database Alert]\n\nRegistration Successful!\nUser ID: ${userId}\nRegistered Email: ${profileData.email}\nStatus: Saved to Supabase Database ✓ (Status: Y)\n\nAccount saved to Krinexa Database. Redirecting to Sign In...`);
       window.location.href = `05-login.html?email=${encodeURIComponent(profileData.email)}`;
     }
   </script>

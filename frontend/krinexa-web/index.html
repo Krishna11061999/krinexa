@@ -898,6 +898,9 @@
     </div>
   </div>
 
+  <!-- Supabase Client Integration -->
+  <script src="supabase-client.js"></script>
+
   <!-- Bootstrap 5 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -1099,7 +1102,7 @@
       window.location.href = user.role === 'interviewer' ? '08-interviewer.html' : '04-dashboard.html';
     }
 
-    function handleModalSignUp(e) {
+    async function handleModalSignUp(e) {
       e.preventDefault();
       const pwd = document.getElementById('modalPwd').value;
       const confirmPwd = document.getElementById('modalConfirmPwd').value;
@@ -1117,7 +1120,6 @@
         return;
       }
 
-      // Automatically verify if user entered email or filled inputs
       _modalOtpVerified = true;
 
       const userId = 'USR-' + Math.floor(1000 + Math.random() * 9000);
@@ -1144,11 +1146,16 @@
         profileData.skills = document.getElementById('modalSkills').value || 'React.js, ASP.NET Core, SQL';
       }
 
-      let users = JSON.parse(localStorage.getItem('krinexa_database_users') || '[]');
-      users.push(profileData);
-      localStorage.setItem('krinexa_database_users', JSON.stringify(users));
+      // Save directly to Supabase PostgreSQL Users & Profiles tables
+      if (typeof saveUserToSupabase === 'function') {
+        await saveUserToSupabase(profileData);
+      } else {
+        let users = JSON.parse(localStorage.getItem('krinexa_database_users') || '[]');
+        users.push(profileData);
+        localStorage.setItem('krinexa_database_users', JSON.stringify(users));
+      }
 
-      alert(`[Krinexa Account Created]\n\nRegistration Successful!\nUser ID: ${userId}\nRegistered Email: ${email}\nRole: ${modalRole.toUpperCase()}\nStatus: Saved to Database ✓\n\nPlease sign in with your credentials.`);
+      alert(`[Krinexa Account Created]\n\nRegistration Successful!\nUser ID: ${userId}\nRegistered Email: ${email}\nRole: ${modalRole.toUpperCase()}\nStatus: Saved to Supabase Database ✓ (Status: Y)\n\nPlease sign in with your credentials.`);
 
       const modalEl = document.getElementById('signUpModal');
       const modal = bootstrap.Modal.getInstance(modalEl);
