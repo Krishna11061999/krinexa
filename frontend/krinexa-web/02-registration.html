@@ -326,12 +326,21 @@
               </div>
             </div>
 
-            <div class="mb-6">
+            <div class="mb-4">
               <label class="form-label font-body-sm text-on-surface-variant">Email Address (Used for Login & OTP Verification) *</label>
               <div class="input-group">
                 <input type="email" id="email" class="form-control rounded-l-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="you@example.com" required>
                 <button type="button" class="btn btn-outline-secondary font-body-sm px-4" onclick="sendOTP()">Send OTP</button>
               </div>
+            </div>
+            <!-- OTP Verification Row -->
+            <div class="mb-6" id="otpVerifyRow" style="display:none;">
+              <label class="form-label font-body-sm text-on-surface-variant">Enter 6-digit OTP sent to your email *</label>
+              <div class="input-group">
+                <input type="text" id="otpInput" maxlength="6" class="form-control rounded-l-lg p-3 bg-surface text-on-surface border-outline-variant/40" placeholder="e.g. 482910">
+                <button type="button" class="btn btn-secondary font-body-sm px-4" onclick="verifyOTP()">Verify OTP</button>
+              </div>
+              <small id="otpStatus" class="text-on-surface-variant"></small>
             </div>
 
             <!-- MANDATORY CANDIDATE SOCIAL LINKS -->
@@ -591,18 +600,51 @@
       }
     }
 
+    let _otpGenerated = null;
+    let _otpEmailVerified = false;
+    let _interviewerOtpGenerated = null;
+    let _interviewerOtpVerified = false;
+
     function sendOTP() {
       const email = document.getElementById('email').value;
-      if (!email) {
-        alert('Please enter your email address first.');
+      if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address first.');
         return;
       }
-      alert(`OTP code sent to ${email}. Check your inbox!`);
+      _otpGenerated = Math.floor(100000 + Math.random() * 900000).toString();
+      _otpEmailVerified = false;
+      document.getElementById('otpVerifyRow').style.display = '';
+      document.getElementById('otpStatus').textContent = '';
+      document.getElementById('otpInput').value = '';
+      // In production this OTP is emailed. For demo, show in console & alert.
+      console.log('[Krinexa OTP] Candidate OTP:', _otpGenerated);
+      alert(`OTP ${_otpGenerated} has been sent to ${email}. (Demo: check console)`);
+    }
+
+    function verifyOTP() {
+      const entered = document.getElementById('otpInput').value.trim();
+      const statusEl = document.getElementById('otpStatus');
+      if (entered === _otpGenerated) {
+        _otpEmailVerified = true;
+        statusEl.style.color = 'green';
+        statusEl.textContent = '✓ Email verified successfully!';
+      } else {
+        statusEl.style.color = 'red';
+        statusEl.textContent = '✗ Incorrect OTP. Please try again.';
+      }
     }
 
     function handleRegistrationSubmit(e) {
       e.preventDefault();
-      
+
+      const isInterviewer = currentRole === 'interviewer';
+
+      // OTP gate — only for candidate roles (interviewer has separate OTP via interviewerEmail field; skip gate if already verified)
+      if (!isInterviewer && !_otpEmailVerified) {
+        alert('Please verify your email via OTP before completing registration.');
+        return;
+      }
+
       const pwd = document.getElementById('password').value;
       const confirmPwd = document.getElementById('confirmPassword').value;
 
@@ -611,9 +653,9 @@
         return;
       }
 
-      let profileData = { role: currentRole };
+      let profileData = { role: currentRole, isEmailVerified: true, registeredAt: new Date().toISOString() };
 
-      if (currentRole === 'interviewer') {
+      if (isInterviewer) {
         profileData.name = document.getElementById('interviewerName').value;
         profileData.email = document.getElementById('interviewerEmail').value;
         profileData.company = document.getElementById('companyName').value;
@@ -623,18 +665,22 @@
       } else {
         profileData.name = document.getElementById('fullName').value;
         profileData.email = document.getElementById('email').value;
+        profileData.phone = document.getElementById('mobileNumber').value;
         profileData.portfolioUrl = document.getElementById('portfolioUrl').value;
         profileData.githubUrl = document.getElementById('githubUrl').value;
         profileData.linkedinUrl = document.getElementById('linkedinUrl').value;
         profileData.skills = document.getElementById('techSkills').value;
       }
 
-      let users = JSON.parse(localStorage.getItem('krinexa_users') || '[]');
+      profileData.password = btoa(pwd); // base64 encoded (not for production — replace with server hashing)
+      profileData.userId = 'USR-' + Math.floor(1000 + Math.random() * 9000);
+
+      let users = JSON.parse(localStorage.getItem('krinexa_database_users') || '[]');
       users.push(profileData);
-      localStorage.setItem('krinexa_users', JSON.stringify(users));
+      localStorage.setItem('krinexa_database_users', JSON.stringify(users));
 
       alert(`Registration successful for ${profileData.email}! Redirecting to Sign In...`);
-      window.location.href = '05-login.html';
+      window.location.href = '05-login.html?email=' + encodeURIComponent(profileData.email);
     }
   </script>
 

@@ -791,7 +791,10 @@
                 </div>
                 <div>
                   <label class="form-label font-body-sm text-xs text-on-surface-variant">Email Address (Used for Login) *</label>
-                  <input type="email" id="modalEmail" class="form-control rounded-lg p-2.5 bg-surface text-sm border-outline-variant/40" placeholder="priya@example.com" required>
+                  <div class="input-group">
+                    <input type="email" id="modalEmail" class="form-control rounded-l-lg p-2.5 bg-surface text-sm border-outline-variant/40" placeholder="priya@example.com" required>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="modalSendOTP()">Send OTP</button>
+                  </div>
                 </div>
               </div>
 
@@ -809,6 +812,14 @@
                   <label class="form-label font-body-sm text-xs text-on-surface-variant">LinkedIn Link *</label>
                   <input type="url" id="modalLinkedin" class="form-control rounded-lg p-2.5 bg-surface text-sm border-outline-variant/40" placeholder="https://linkedin.com/in/user" required>
                 </div>
+              </div>
+
+              <div class="mb-2" id="modalOtpRow" style="display:none;">
+                <div class="input-group">
+                  <input type="text" id="modalOtpInput" maxlength="6" class="form-control rounded-l-lg p-2.5 bg-surface text-sm border-outline-variant/40" placeholder="6-digit OTP">
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="modalVerifyOTP()">Verify OTP</button>
+                </div>
+                <small id="modalOtpStatus" class="text-on-surface-variant"></small>
               </div>
 
               <div class="mb-3">
@@ -948,13 +959,54 @@
       document.getElementById('modalSkills').value = 'ASP.NET Core, C#, React.js, SQL Server, Azure';
     }
 
+    let _modalOtp = null;
+    let _modalOtpVerified = false;
+
+    function modalSendOTP() {
+      const email = document.getElementById('modalEmail').value;
+      if (!email || !email.includes('@')) { alert('Please enter a valid email first.'); return; }
+      _modalOtp = Math.floor(100000 + Math.random() * 900000).toString();
+      _modalOtpVerified = false;
+      document.getElementById('modalOtpRow').style.display = '';
+      document.getElementById('modalOtpStatus').textContent = '';
+      document.getElementById('modalOtpInput').value = '';
+      console.log('[Krinexa OTP] Modal OTP:', _modalOtp);
+      alert(`OTP ${_modalOtp} sent to ${email}. (Demo: check console)`);
+    }
+
+    function modalVerifyOTP() {
+      const entered = document.getElementById('modalOtpInput').value.trim();
+      const el = document.getElementById('modalOtpStatus');
+      if (entered === _modalOtp) {
+        _modalOtpVerified = true;
+        el.style.color = 'green';
+        el.textContent = '\u2713 Email verified!';
+      } else {
+        el.style.color = 'red';
+        el.textContent = '\u2717 Incorrect OTP.';
+      }
+    }
+
     function handleModalLogin(e) {
       e.preventDefault();
       const email = document.getElementById('modalLoginEmail').value;
-      alert(`Signed in successfully as ${modalLoginRole.toUpperCase()} (${email})!`);
+      const pwd = document.getElementById('modalLoginPassword') ? document.getElementById('modalLoginPassword').value : '';
+      const users = JSON.parse(localStorage.getItem('krinexa_database_users') || '[]');
+      const user = users.find(u => u.email === email);
+      if (!user) {
+        alert('No account found for this email. Please sign up first.');
+        return;
+      }
+      if (pwd && user.password && atob(user.password) !== pwd) {
+        alert('Incorrect password. Please try again.');
+        return;
+      }
+      localStorage.setItem('krinexa_current_user', JSON.stringify(user));
+      alert(`Welcome back, ${user.name || email}!`);
       const modalEl = document.getElementById('signInModal');
       const modal = bootstrap.Modal.getInstance(modalEl);
       if (modal) modal.hide();
+      window.location.href = user.role === 'interviewer' ? '08-interviewer.html' : '04-dashboard.html';
     }
 
     function handleModalSignUp(e) {
@@ -962,17 +1014,50 @@
       const pwd = document.getElementById('modalPwd').value;
       const confirmPwd = document.getElementById('modalConfirmPwd').value;
 
-      if (pwd !== confirmPwd) {
-        alert('Passwords do not match.');
+      if (pwd !== confirmPwd) { alert('Passwords do not match.'); return; }
+
+      const isInterviewer = modalRole === 'interviewer';
+
+      if (!isInterviewer && !_modalOtpVerified) {
+        alert('Please verify your email via OTP before registering.');
         return;
       }
 
-      let email = modalRole === 'interviewer' ? document.getElementById('modalClientEmail').value : document.getElementById('modalEmail').value;
+      let email = isInterviewer ? document.getElementById('modalClientEmail').value : document.getElementById('modalEmail').value;
+      let profileData = {
+        role: modalRole,
+        email: email,
+        isEmailVerified: !isInterviewer ? true : false,
+        registeredAt: new Date().toISOString(),
+        password: btoa(pwd),
+        userId: 'USR-' + Math.floor(1000 + Math.random() * 9000)
+      };
 
-      alert(`Account created successfully for ${email} as ${modalRole.toUpperCase()}! Profile saved.`);
+      if (isInterviewer) {
+        profileData.name = document.getElementById('modalClientName').value;
+        profileData.designation = document.getElementById('modalClientRole').value;
+        profileData.company = document.getElementById('modalCompanyName').value;
+        profileData.companySize = document.getElementById('modalCompanySize').value;
+        profileData.companyUrl = document.getElementById('modalCompanyUrl').value;
+      } else {
+        profileData.name = document.getElementById('modalName').value;
+        profileData.portfolio = document.getElementById('modalPortfolio').value;
+        profileData.github = document.getElementById('modalGithub').value;
+        profileData.linkedin = document.getElementById('modalLinkedin').value;
+        profileData.skills = document.getElementById('modalSkills').value;
+      }
+
+      let users = JSON.parse(localStorage.getItem('krinexa_database_users') || '[]');
+      users.push(profileData);
+      localStorage.setItem('krinexa_database_users', JSON.stringify(users));
+
+      alert(`Account created for ${email}! Please sign in.`);
       const modalEl = document.getElementById('signUpModal');
       const modal = bootstrap.Modal.getInstance(modalEl);
       if (modal) modal.hide();
+      // Open sign-in modal
+      const signInModal = new bootstrap.Modal(document.getElementById('signInModal'));
+      signInModal.show();
     }
   </script>
 
