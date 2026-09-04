@@ -729,21 +729,41 @@
         profileData.githubUrl = document.getElementById('githubUrl').value || 'https://github.com/user';
         profileData.linkedinUrl = document.getElementById('linkedinUrl').value || 'https://linkedin.com/in/user';
         profileData.skills = document.getElementById('techSkills').value || 'React.js, ASP.NET Core';
+
+        if (currentRole === 'student' || currentRole === 'intern') {
+          profileData.collegeName = document.getElementById('collegeName') ? document.getElementById('collegeName').value : 'ABES Engineering College';
+          profileData.degree = document.getElementById('degree') ? document.getElementById('degree').value : 'B.Tech';
+          profileData.branch = document.getElementById('branch') ? document.getElementById('branch').value : 'Computer Science';
+          profileData.passingYear = document.getElementById('passingYear') ? document.getElementById('passingYear').value : '2026';
+        }
+      }
+
+      if (!profileData.email) {
+        alert('Please enter your email address.');
+        return;
       }
 
       profileData.password = btoa(pwd);
       profileData.userId = 'USR-' + Math.floor(1000 + Math.random() * 9000);
 
       // Save directly to Supabase PostgreSQL Users & Profiles tables
+      let supaRes = null;
       if (typeof saveUserToSupabase === 'function') {
-        await saveUserToSupabase(profileData);
+        supaRes = await saveUserToSupabase(profileData);
       } else {
         let users = JSON.parse(localStorage.getItem('krinexa_database_users') || '[]');
         users.push(profileData);
         localStorage.setItem('krinexa_database_users', JSON.stringify(users));
+        supaRes = { success: true };
       }
 
-      alert(`[Krinexa Database Alert]\n\nRegistration Successful!\nRegistered Email: ${profileData.email}\nStatus: Saved to Supabase Database ✓ (Status: Y)\n\nRedirecting to Sign In...`);
+      if (supaRes && supaRes.success === false) {
+        alert(`[Krinexa Database Alert]\n\nRegistration Failed: ${supaRes.error || 'Database error occurred.'}\n\nPlease check your details and try again.`);
+        return;
+      }
+
+      const confirmedId = (supaRes && supaRes.userId) ? supaRes.userId : profileData.userId;
+      alert(`[Krinexa Database Alert]\n\nRegistration Successful!\nUser ID: ${confirmedId}\nRegistered Email: ${profileData.email}\nStatus: Saved to Supabase Database ✓ (Status: Y)\n\nRedirecting to Sign In...`);
       window.location.href = '05-login.html?email=' + encodeURIComponent(profileData.email);
     }
   </script>

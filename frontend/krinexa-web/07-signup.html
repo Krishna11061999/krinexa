@@ -573,19 +573,37 @@
     function selectRole(role) {
       currentRole = role;
       document.querySelectorAll('#roleSelectorGroup button').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      if (event && event.target) {
+        event.target.classList.add('active');
+      }
 
       const candidateFields = document.getElementById('candidateFields');
       const academicSection = document.getElementById('academicSection');
       const interviewerFields = document.getElementById('interviewerFields');
 
+      const candidateInputs = candidateFields.querySelectorAll('input');
+      const interviewerInputs = interviewerFields.querySelectorAll('input');
+
       if (role === 'interviewer') {
         candidateFields.classList.add('hidden');
         interviewerFields.classList.remove('hidden');
+
+        candidateInputs.forEach(i => i.removeAttribute('required'));
+        document.getElementById('interviewerName').setAttribute('required', 'true');
+        document.getElementById('interviewerEmail').setAttribute('required', 'true');
       } else {
         candidateFields.classList.remove('hidden');
         interviewerFields.classList.add('hidden');
         
+        interviewerInputs.forEach(i => i.removeAttribute('required'));
+        document.getElementById('fullName').setAttribute('required', 'true');
+        document.getElementById('email').setAttribute('required', 'true');
+        document.getElementById('mobileNumber').setAttribute('required', 'true');
+        document.getElementById('portfolioUrl').setAttribute('required', 'true');
+        document.getElementById('githubUrl').setAttribute('required', 'true');
+        document.getElementById('linkedinUrl').setAttribute('required', 'true');
+        document.getElementById('techSkills').setAttribute('required', 'true');
+
         if (role === 'student' || role === 'intern') {
           academicSection.classList.remove('hidden');
         } else {
@@ -596,11 +614,11 @@
 
     function sendEmailOTP(type) {
       const emailInput = type === 'candidate' ? document.getElementById('email') : document.getElementById('interviewerEmail');
-      const email = emailInput.value;
+      const email = emailInput ? emailInput.value : '';
 
       if (!email || !email.includes('@')) {
         alert('Please enter a valid email address first.');
-        emailInput.focus();
+        if (emailInput) emailInput.focus();
         return;
       }
 
@@ -793,18 +811,38 @@
         profileData.githubUrl = document.getElementById('githubUrl').value || 'https://github.com/user';
         profileData.linkedinUrl = document.getElementById('linkedinUrl').value || 'https://linkedin.com/in/user';
         profileData.techSkills = document.getElementById('techSkills').value || 'React.js, ASP.NET Core';
+
+        if (currentRole === 'student' || currentRole === 'intern') {
+          profileData.collegeName = document.getElementById('collegeName').value || 'ABES Engineering College';
+          profileData.degree = document.getElementById('degree').value || 'B.Tech';
+          profileData.branch = document.getElementById('branch').value || 'Computer Science';
+          profileData.passingYear = document.getElementById('passingYear').value || '2026';
+        }
+      }
+
+      if (!profileData.email) {
+        alert('Please enter your email address.');
+        return;
       }
 
       // Save directly to Supabase PostgreSQL Users & Profiles tables
+      let supaRes = null;
       if (typeof saveUserToSupabase === 'function') {
-        await saveUserToSupabase(profileData);
+        supaRes = await saveUserToSupabase(profileData);
       } else {
         let databaseUsers = JSON.parse(localStorage.getItem('krinexa_database_users') || '[]');
         databaseUsers.push(profileData);
         localStorage.setItem('krinexa_database_users', JSON.stringify(databaseUsers));
+        supaRes = { success: true, userId: userId };
       }
 
-      alert(`[Krinexa Database Alert]\n\nRegistration Successful!\nUser ID: ${userId}\nRegistered Email: ${profileData.email}\nStatus: Saved to Supabase Database ✓ (Status: Y)\n\nAccount saved to Krinexa Database. Redirecting to Sign In...`);
+      if (supaRes && supaRes.success === false) {
+        alert(`[Krinexa Database Alert]\n\nRegistration Failed: ${supaRes.error || 'Database error occurred.'}\n\nPlease check your inputs and try again.`);
+        return;
+      }
+
+      const confirmedId = (supaRes && supaRes.userId) ? supaRes.userId : userId;
+      alert(`[Krinexa Database Alert]\n\nRegistration Successful!\nUser ID: ${confirmedId}\nRegistered Email: ${profileData.email}\nStatus: Saved to Supabase Database ✓ (Status: Y)\n\nAccount saved to Krinexa Database. Redirecting to Sign In...`);
       window.location.href = `05-login.html?email=${encodeURIComponent(profileData.email)}`;
     }
   </script>

@@ -56,6 +56,21 @@ async function _getUserByEmail(email) {
   return null;
 }
 
+/* ----------------------------------------------------------------
+   Helper: Fetch existing TalentProfile by UserId
+---------------------------------------------------------------- */
+async function _getTalentProfileByUserId(userId) {
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/TalentProfiles?UserId=eq.${encodeURIComponent(userId)}&select=*&limit=1`,
+    { method: "GET", headers: _dbReadHeaders }
+  );
+  if (res.ok) {
+    const rows = await res.json();
+    return rows.length > 0 ? rows[0] : null;
+  }
+  return null;
+}
+
 /* ================================================================
    saveUserToSupabase — called on every registration form submit
 ================================================================ */
@@ -77,7 +92,7 @@ async function saveUserToSupabase(data) {
     const email = (data.email || '').toLowerCase().trim();
     if (!email) {
       console.warn('[Supabase] No email provided — skipping save.');
-      return { success: false, error: 'No email' };
+      return { success: false, error: 'Please enter a valid email address.' };
     }
 
     // ── Step 1: Upsert into Users table ──────────────────────────
@@ -97,34 +112,61 @@ async function saveUserToSupabase(data) {
     }
 
     const userId = insertedUser ? insertedUser.Id : null;
+    if (!userId) {
+      console.error('[Supabase] Failed to resolve UserId for:', email);
+      return { success: false, error: 'Could not create user record in Krinexa database.' };
+    }
+
     console.log('[Supabase] User row resolved — Id:', userId);
 
     // ── Step 2: Insert profile table ─────────────────────────────
-    if (userId) {
-      if (isClient) {
-        await _dbPost('ClientOrganizations', {
-          UserId: userId,
-          OrganizationName: data.company || data.companyName || 'Tech Organization',
-          ContactName: data.name || data.fullName || 'Client User',
-          Designation: data.designation || 'Hiring Manager',
-          CompanySize: data.companySize || '11-50',
-          CompanyUrl: data.companyUrl || 'https://krinexa.in',
-          BusinessPhone: data.mobileNumber || data.businessPhone || '+91 98765 43210'
-        });
-        console.log('[Supabase] ClientOrganizations row inserted for:', email);
-      } else {
-        await _dbPost('TalentProfiles', {
-          UserId: userId,
-          Name: data.name || data.fullName || 'Talent User',
-          Mobile: data.mobileNumber || data.phone || '+91 98765 43210',
-          ProfileType: profileType,
-          Summary: 'Registered via Krinexa portal. Skills: ' + (data.skills || data.techSkills || 'Web Development'),
-          PortfolioUrl: data.portfolio || data.portfolioUrl || 'https://portfolio.dev',
-          GitHubUrl: data.github || data.githubUrl || 'https://github.com/user',
-          LinkedInUrl: data.linkedin || data.linkedinUrl || 'https://linkedin.com/in/user',
-          IsApproved: true
-        });
-        console.log('[Supabase] TalentProfiles row inserted for:', email);
+    if (isClient) {
+      await _dbPost('ClientOrganizations', {
+        UserId: userId,
+        OrganizationName: data.company || data.companyName || 'Tech Organization',
+        ContactName: data.name || data.fullName || 'Client User',
+        Designation: data.designation || 'Hiring Manager',
+        CompanySize: data.companySize || '11-50',
+        CompanyUrl: data.companyUrl || 'https://krinexa.in',
+        BusinessPhone: data.mobileNumber || data.businessPhone || '+91 98765 43210'
+      });
+      console.log('[Supabase] ClientOrganizations row inserted for:', email);
+    } else {
+      let talentProfile = await _dbPost('TalentProfiles', {
+        UserId: userId,
+        Name: data.name || data.fullName || 'Talent User',
+        Mobile: data.mobileNumber || data.phone || '+91 98765 43210',
+        ProfileType: profileType,
+        Summary: 'Registered via Krinexa portal. Skills: ' + (data.skills || data.techSkills || 'Web Development'),
+        PortfolioUrl: data.portfolio || data.portfolioUrl || 'https://portfolio.dev',
+        GitHubUrl: data.github || data.githubUrl || 'https://github.com/user',
+        LinkedInUrl: data.linkedin || data.linkedinUrl || 'https://linkedin.com/in/user',
+        IsApproved: true
+      });
+
+      if (!talentProfile) {
+        talentProfile = await _getTalentProfileByUserId(userId);
+      }
+
+      console.log('[Supabase] TalentProfiles row inserted/resolved for:', email);
+
+      // Insert StudentProfiles if student/intern
+      if (role === 'student' || role === 'intern') {
+        const talentProfileId = talentProfile ? talentProfile.Id : null;
+        if (talentProfileId) {
+          const gradYrMatch = (data.passingYear || '2026').match(/\d{4}/);
+          const gradYr = gradYrMatch ? parseInt(gradYrMatch[0]) : 2026;
+
+          await _dbPost('StudentProfiles', {
+            TalentProfileId: talentProfileId,
+            College: data.collegeName || data.college || 'ABES Engineering College',
+            Degree: data.degree || 'B.Tech',
+            Branch: data.branch || 'Computer Science',
+            CurrentYear: data.passingYear || 'Final Year',
+            GraduationYear: gradYr
+          });
+          console.log('[Supabase] StudentProfiles row inserted for:', email);
+        }
       }
     }
 
@@ -136,7 +178,7 @@ async function saveUserToSupabase(data) {
     return { success: true, userId: userId, email: email };
   } catch (err) {
     console.error('[Supabase] saveUserToSupabase error:', err);
-    return { success: false, error: err.message };
+    return { success: false, error: err.message || 'Database connection error.' };
   }
 }
 

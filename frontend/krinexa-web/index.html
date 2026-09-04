@@ -1154,6 +1154,11 @@
         supaRes = await saveUserToSupabase(profileData);
       }
 
+      if (supaRes && supaRes.success === false) {
+        alert(`[Krinexa Account Creation Failed]\n\nRegistration Error: ${supaRes.error || 'Database error occurred.'}\n\nPlease check your inputs and try again.`);
+        return;
+      }
+
       const confirmedId = (supaRes && supaRes.userId) ? supaRes.userId : userId;
 
       alert(`[Krinexa Account Created]\n\nRegistration Successful!\nUser ID: ${confirmedId}\nRegistered Email: ${email}\nRole: ${modalRole.toUpperCase()}\nStatus: Saved to Supabase Database ✓ (Status: Y)\n\nPlease sign in with your credentials.`);
